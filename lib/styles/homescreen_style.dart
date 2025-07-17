@@ -51,4 +51,10 @@ class HomescreenStyle {
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(156, 163, 175, 1)
   );
+
+  static TextStyle title = TextStyle(
+    fontSize: 48,
+    fontWeight: FontWeight.w700,
+    color: Color.fromRGBO(255, 255, 255, 1)
+  );
 }

@@ -63,6 +63,10 @@ flutter:
     - lib\assets\images\kollection_lamborgini.png
     - lib\assets\images\porsche911.png
     - lib\assets\images\ferrari485.png
+    - lib\assets\images\Icon-133.png
+    - lib\assets\images\I-165.png
+    - lib\assets\images\I-154.png
+    - lib\assets\images\I-143.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

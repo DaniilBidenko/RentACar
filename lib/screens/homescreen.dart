@@ -132,11 +132,7 @@ class Homescreen extends StatelessWidget{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                  Text('Премиальная коллекция',
-                  style: TextStyle(
-                    fontSize: 48,
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromRGBO(255, 255, 255, 1)
-                  ),
+                  style: HomescreenStyle.title
                  ),
                  Padding(padding: EdgeInsets.only(top: 30, left: 304, right: 304),
                   child: Column(
@@ -165,21 +161,105 @@ class Homescreen extends StatelessWidget{
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    card('lib/assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}),
-                    card('lib/assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}),
-                    card('lib/assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000/день', '650 л.c.', '2.7 сек', '330 км/ч', () {})
+                    card('lib/assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}),
+                    card('lib/assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}),
+                    card('lib/assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {})
                   ],
                  ),
                  )
                 ],
               ),
             )
-          )
+          ),
+          Container(
+            width: 1550,
+            height: 520,
+            color: Color.fromRGBO(17, 24, 39, 1),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(padding: EdgeInsets.only(top: 80, bottom: 20),
+                child: Text('Премиальный сервис',
+                style: HomescreenStyle.title,
+                )
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Исключительно обслуживание на каждом этапе',
+                      style: HomescreenStyle.topKollectionText,
+                    )
+                  ],
+                ),
+                Padding(padding: EdgeInsets.only(top: 80),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    services('lib/assets/images/Icon-133.png', 'Доставка авто', 'Бесплатная доставка в любую точку', 'города в течение часа'),
+                    services('lib/assets/images/I-165.png', 'Страхование', 'Полное Страхование и техническая', 'поддержка 24/7'),
+                    services('lib/assets/images/I-154.png', 'Персональный менеджер', 'Индивидуальное сопровождение и', 'консультации'),
+                    services('lib/assets/images/I-143.png', 'Гибкие условия', 'Аренда от 1 часа до нескольких', 'месяцев')
+                  ],
+                ),
+                )
+              ],
+            )
+          ),
               
         ],
       )
     );
   }
+}
+
+Widget services (String  icon, String label, String lowerText, String underLowerText) {
+  return Container(
+    width: 300,
+    height: 200,
+    child: Center(
+      child: Column(
+        children: [
+          Container(
+            width: 80,
+            height: 80,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(99)),
+              color: Color.fromRGBO(234, 179, 8, 1)
+            ),
+            child: Center(
+              child: Image.asset(icon,
+              width: 31.25,
+              height: 30,
+              ),
+            ),
+          ),
+          Padding(padding: EdgeInsets.only(top: 24, bottom: 15),
+            child: Text(label,
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: Color.fromRGBO(255, 255, 255, 1)
+            ),
+          ),
+          ),
+          Text(lowerText,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Color.fromRGBO(156, 163, 175, 1)
+            ),
+          ),
+          Text(underLowerText,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Color.fromRGBO(156, 163, 175, 1)
+            ),
+          )
+        ],
+      ),
+    ),
+  );
 }
 
 Widget card (String img, String label, String price, String hoursePower, String sekund, String kmHour, VoidCallback function) {
