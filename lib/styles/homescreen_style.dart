@@ -57,4 +57,10 @@ class HomescreenStyle {
     fontWeight: FontWeight.w700,
     color: Color.fromRGBO(255, 255, 255, 1)
   );
+
+  static TextStyle experience = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: Colors.black
+  );
 }

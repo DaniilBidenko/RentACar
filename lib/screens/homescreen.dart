@@ -100,6 +100,7 @@ class Homescreen extends StatelessWidget{
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.w700,
+                                            fontFamily: 'Roboto',
                                             color: Color.fromRGBO(255, 255, 255, 1)
                                           )
                                         ),
@@ -173,7 +174,7 @@ class Homescreen extends StatelessWidget{
           ),
           Container(
             width: 1550,
-            height: 520,
+            height: 600,
             color: Color.fromRGBO(17, 24, 39, 1),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -205,7 +206,79 @@ class Homescreen extends StatelessWidget{
               ],
             )
           ),
-              
+          Container(
+            width: 1550,
+            height: 450,
+            color: Color.fromRGBO(202, 138, 4, 1),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(padding: EdgeInsets.only(top: 80, bottom: 20),
+                  child: Text('Готовы к незабываемому опыту?',
+                  style: TextStyle(
+                    fontSize: 48,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Roboto',
+                    color: Color.fromRGBO(0, 0, 0, 1)
+                  ),
+                ),
+                ),
+                Text('Забронируйте свой идеальный автомобиль прямо сейчас и получитие скидку 10% на первую',
+                  style: HomescreenStyle.experience
+                ),
+                Text('аренду', style: HomescreenStyle.experience),
+                Padding(padding: EdgeInsets.only(top: 35),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 257.63,
+                        height: 64,
+                        color: Colors.transparent,
+                        child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black
+                        ),
+                        onPressed: () {}, 
+                        child: Center(
+                          child: Text('Забронировать сейчас',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Color.fromRGBO(255, 255, 255, 1)
+                            ),
+                          ),
+                        )
+                        ),
+                      ),
+                        SizedBox(width: 15,),
+                        Container(
+                          width: 257.63,
+                          height: 64,
+                          color: Colors.transparent,
+                          child:  ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromRGBO(202, 138, 4, 1),
+                            shadowColor: Colors.black,
+                          ),
+                          onPressed: () {}, 
+                          child: Center(
+                            child: Text('Связаться с нами',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black
+                              ),
+                            ),
+                          )
+                        ),
+                        )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ],
       )
     );
