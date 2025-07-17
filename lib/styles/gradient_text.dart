@@ -22,3 +22,21 @@ class GradientText extends StatelessWidget{
       );
     }
 }
+
+
+                                                  
+
+                                        //            Padding(
+                                        //   padding: EdgeInsets.only(right: 280, left: 280),
+                                        //   child: Column(
+                                        //     crossAxisAlignment: CrossAxisAlignment.center,
+                                        //     children: [
+                                        //       Text('Отборные суперкары от ведущих мировых производителей для самых',
+                                        //         style: HomescreenStyle.topKollectionText
+                                        //       ),
+                                        //       Text('взыскательных клиентов',
+                                        //         style: HomescreenStyle.topKollectionText,
+                                        //       )
+                                        //     ],
+                                        //   ),
+                                        // ),

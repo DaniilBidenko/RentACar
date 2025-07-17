@@ -27,8 +27,28 @@ class HomescreenStyle {
   static TextStyle descriptionCenter = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.w400,
-    color: Color.fromRGBO(209, 213, 219, 1)
+    color: Color.fromRGBO(209, 213, 219, 1),
+    fontFamily: 'Roboto'
   );
 
-  
+
+  static TextStyle yelowButtonsText = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: Color.fromRGBO(0, 0, 0, 1),
+    fontFamily: 'Roboto'
+  );
+
+  static TextStyle topKollectionText = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    color: Color.fromRGBO(156, 163, 175, 1),
+    fontFamily: 'Roboto'
+  );
+
+  static TextStyle characteristickContainerText = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: Color.fromRGBO(156, 163, 175, 1)
+  );
 }

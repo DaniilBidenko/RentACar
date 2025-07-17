@@ -36,11 +36,7 @@ class _AppBarWidgetState extends State<AppbarWidget> {
                 ),
                 onPressed: () {}, 
                 child: Text('+7 (495) 123-45-67',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Color.fromRGBO(0, 0, 0, 1)
-                  )
+                  style: HomescreenStyle.yelowButtonsText
                 ),
               )
             ),
