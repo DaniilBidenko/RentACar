@@ -12,21 +12,23 @@ class AppbarWidget extends StatefulWidget implements PreferredSizeWidget{
 class _AppBarWidgetState extends State<AppbarWidget> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return AppBar(
       backgroundColor: Colors.transparent,
-      title: Padding(padding: EdgeInsets.only(top: 24, right: 32, bottom: 24, left: 32),
+      title: Padding(padding: EdgeInsets.only(top: 45, right: 32, bottom: 24, left: 32),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('EliteRent',
-              style: HomescreenStyle.logoStyle,
+              style: HomescreenStyle.logoStyle(context),
             ),
             Container(
               child: AppbarButtonWidget(),
             ),
             Container(
-              width: 189.34,
-              height: 40,
+              width: width * 0.1,
+              height: height * 0.05,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromRGBO(234, 179, 8, 1),
@@ -36,7 +38,7 @@ class _AppBarWidgetState extends State<AppbarWidget> {
                 ),
                 onPressed: () {}, 
                 child: Text('+7 (495) 123-45-67',
-                  style: HomescreenStyle.yelowButtonsText
+                  style: HomescreenStyle.yelowButtonsText(context)
                 ),
               )
             ),

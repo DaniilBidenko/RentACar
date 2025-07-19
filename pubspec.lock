@@ -192,6 +192,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
+  textuality:
+    dependency: "direct main"
+    description:
+      name: textuality
+      sha256: cf40fd096e95090a9e960cea4506af63abd6c9180dd925876e78515524b76042
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   vector_math:
     dependency: transitive
     description:
