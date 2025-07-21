@@ -7,7 +7,7 @@ class HomescreenStyle {
     double width = MediaQuery.of(context).size.width;
 
     return TextStyle(
-    fontSize: width * 0.018,
+    fontSize: width < 945 ? width * 0.03 : width * 0.18,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(255, 255, 255, 1),
     fontFamily: 'Roboto'
@@ -17,7 +17,7 @@ class HomescreenStyle {
   static TextStyle appbarButtonTextStyle (BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return TextStyle(
-    fontSize: width * 0.01,
+    fontSize: width < 945 ? width * 0.02 : width * 0.01,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(255, 255, 255, 1),
     fontFamily: 'Roboto',
@@ -38,7 +38,7 @@ class HomescreenStyle {
     double width = MediaQuery.of(context).size.width;
 
     return TextStyle(
-      fontSize: width * 0.0155,
+      fontSize: width < 945 ? width * 0.02 : width * 0.0155,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(209, 213, 219, 1),
     fontFamily: 'Roboto'
@@ -51,19 +51,22 @@ class HomescreenStyle {
     double width = MediaQuery.of(context).size.width;
 
     return TextStyle(
-    fontSize: width * 0.0079,
+    fontSize: width < 945 ? width * 0.02 : width * 0.007, 
     fontWeight: FontWeight.w900,
     color: Color.fromRGBO(0, 0, 0, 1),
     fontFamily: 'Roboto'
     );
   }
 
-  static TextStyle topKollectionText = TextStyle(
-    fontSize: 20,
+  static TextStyle topKollectionText (BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+   return TextStyle(
+    fontSize: width < 945 ? width * 0.04 : width * 0.01,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(156, 163, 175, 1),
     fontFamily: 'Roboto'
   );
+  }
 
   static TextStyle characteristickContainerText = TextStyle(
     fontSize: 14,
@@ -72,12 +75,15 @@ class HomescreenStyle {
     fontFamily: 'Roboto'
   );
 
-  static TextStyle title = TextStyle(
-    fontSize: 48,
+  static TextStyle title (BuildContext context) {
+     double width = MediaQuery.of(context).size.width;
+    return TextStyle(
+    fontSize: width < 945 ? width * 0.06 : width * 0.3,
     fontWeight: FontWeight.w700,
     color: Color.fromRGBO(255, 255, 255, 1),
     fontFamily: 'Roboto'
-  );
+    );
+  }
 
   static TextStyle experience = TextStyle(
     fontSize: 20,
@@ -93,12 +99,15 @@ class HomescreenStyle {
     fontFamily: 'Roboto'
   );
 
-  static TextStyle lowDescriprion = TextStyle(
-    fontSize: 16,
+  static TextStyle lowDescriprion (BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return TextStyle(
+    fontSize: width < 945 ? width * 0.027 : width * 0.009,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(156, 163, 175, 1),
     fontFamily: 'Roboto'
   );
+  }
 
   static Shader orangeGradientText = LinearGradient(
     colors: <Color>[Color.fromRGBO(12, 11, 6, 1), Color.fromRGBO(248, 247, 244, 1)],
