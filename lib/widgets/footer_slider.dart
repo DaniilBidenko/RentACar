@@ -9,7 +9,7 @@ class FooterSlider extends StatefulWidget{
 
 class _FooterSliderState extends State<FooterSlider> {
  final PageController _pageController = PageController();
-  int _currentpage = 0;
+  int _currentpage = 2;
 
   @override
   void dispose() {
@@ -19,10 +19,11 @@ class _FooterSliderState extends State<FooterSlider> {
 
   @override
   Widget build(BuildContext context) {
+     double width = MediaQuery.of(context).size.width;
     return Column(
       children: [
        SizedBox(
-        height: 164,
+        height: 200,
         child: PageView(
           controller: _pageController,
           onPageChanged: (int page) {
@@ -32,40 +33,40 @@ class _FooterSliderState extends State<FooterSlider> {
           },
           children: [
             Container(
-                        width: 296,
-                        height: 164,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text('EliteRent',
-                              style: TextStyle(
-                                color: Color.fromRGBO(250, 204, 21, 1),
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400
-                              ),
-                            ),
-                            Flexible(
-                              child: Text('Премиальный прокат экслюзивных автомобилей в Москве',
-                              style: HomescreenStyle.lowDescriprion(context),
-                              )
-                            ),
-                           Padding(padding: EdgeInsets.only(left: 0, right: 150),
-                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                             messangers('assets/images/Icon-203.png'),
-                             messangers('assets/images/Icon-206.png'),
-                             messangers('assets/images/I-208.png'),
-                            ],
-                           ),
-                           )
-                          ],
-                        ),
-                      ),
-            lowContainer('Автомобили', 'Люкс класс', 'Спорткар', 'Экзотическое', 'Классические', context),
-            lowContainer('Услуги', 'Доставка', 'С водителем', 'Мероприятия', 'Долгосрочная аренда', context),
-            lowContainer('Контакты', '+7 (495) 123-45-67', 'info@elitrent.ru', 'Москва, ул. Тверская, 15', 'Работаем 24/7', context)
+              width: 296,
+              height: 164,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text('EliteRent',
+                    style: TextStyle(
+                    color: Color.fromRGBO(250, 204, 21, 1),
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400
+                  ),
+                ),
+                Flexible(
+                  child: Text('Премиальный прокат экслюзивных автомобилей в Москве',
+                  style: HomescreenStyle.lowDescriprion(context),
+                  )
+                ),
+                Padding(padding: EdgeInsets.only(left: 0, right: width * 0.60),
+                child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  messangers('assets/images/Icon-203.png'),
+                  messangers('assets/images/Icon-206.png'),
+                  messangers('assets/images/I-208.png'),
+                ],
+                ),
+                )
+              ],
+            ),
+          ),
+          lowContainer('Автомобили', 'Люкс класс', 'Спорткар', 'Экзотическое', 'Классические', context),
+          lowContainer('Услуги', 'Доставка', 'С водителем', 'Мероприятия', 'Долгосрочная аренда', context),
+          lowContainer('Контакты', '+7 (495) 123-45-67', 'info@elitrent.ru', 'Москва, ул. Тверская, 15', 'Работаем 24/7', context)
           ],
         ),
        ),

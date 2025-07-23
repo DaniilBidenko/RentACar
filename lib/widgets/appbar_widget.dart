@@ -25,8 +25,8 @@ class _AppBarWidgetState extends State<AppbarWidget> {
             ),
             LayoutBuilder(
               builder: (context, constraints) {
-                double buttonPaddingLeft = width < 945 ? width * 0.05 : width * 0.23;
-                double buttonPaddingRight = width < 945 ? width * 0.05 : width * 0.23;
+                double buttonPaddingLeft = width < 945 ? width * 0.05 : width * 0.24;
+                double buttonPaddingRight = width < 945 ? width * 0.05 : width * 0.24;
 
                 return Padding(
                   padding: EdgeInsets.only(left: buttonPaddingLeft, right: buttonPaddingRight),
@@ -38,7 +38,7 @@ class _AppBarWidgetState extends State<AppbarWidget> {
             ),
               Container(
                 width: width < 945 ? width * 0.17 : width * 0.1, 
-                height: width < 945 ? height * 0.03 : height * 0.05,
+                height: width < 945 ? height * 0.05 : height * 0.05,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromRGBO(234, 179, 8, 1),

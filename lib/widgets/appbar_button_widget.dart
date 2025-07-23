@@ -17,7 +17,7 @@ class _AppBarButtonWidgetState extends State<AppbarButtonWidget> {
     double height = MediaQuery.of(context).size.height;
 
     return Container(
-      width: width < 945 ? width * 0.5 : width * 0.32, 
+      width: width < 945 ? width * 0.5 : width * 0.23, 
       height: width < 945 ? height * 0.05 : height * 0.08,
       child: Center(
         child: LayoutBuilder(

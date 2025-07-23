@@ -7,7 +7,7 @@ class HomescreenStyle {
     double width = MediaQuery.of(context).size.width;
 
     return TextStyle(
-    fontSize: width < 945 ? width * 0.03 : width * 0.18,
+    fontSize: width < 945 ? width * 0.03 : width * 0.03,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(255, 255, 255, 1),
     fontFamily: 'Roboto'
@@ -38,7 +38,7 @@ class HomescreenStyle {
     double width = MediaQuery.of(context).size.width;
 
     return TextStyle(
-      fontSize: width < 945 ? width * 0.02 : width * 0.0155,
+      fontSize: width < 945 ? width * 0.02 : width * 0.015,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(209, 213, 219, 1),
     fontFamily: 'Roboto'
@@ -61,7 +61,7 @@ class HomescreenStyle {
   static TextStyle topKollectionText (BuildContext context) {
     double width = MediaQuery.of(context).size.width;
    return TextStyle(
-    fontSize: width < 945 ? width * 0.04 : width * 0.01,
+    fontSize: width < 945 ? width * 0.04 : width * 0.015,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(156, 163, 175, 1),
     fontFamily: 'Roboto'
@@ -78,7 +78,7 @@ class HomescreenStyle {
   static TextStyle title (BuildContext context) {
      double width = MediaQuery.of(context).size.width;
     return TextStyle(
-    fontSize: width < 945 ? width * 0.06 : width * 0.3,
+    fontSize: width < 945 ? width * 0.06 : width * 0.06,
     fontWeight: FontWeight.w700,
     color: Color.fromRGBO(255, 255, 255, 1),
     fontFamily: 'Roboto'
@@ -102,7 +102,7 @@ class HomescreenStyle {
   static TextStyle lowDescriprion (BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return TextStyle(
-    fontSize: width < 945 ? width * 0.027 : width * 0.009,
+    fontSize: width < 945 ? width * 0.02 : width * 0.01,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(156, 163, 175, 1),
     fontFamily: 'Roboto'

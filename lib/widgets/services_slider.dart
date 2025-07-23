@@ -16,43 +16,100 @@ class _ServicesSliderState extends State<ServicesSlider>{
     super.dispose();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 200,
-          child: PageView(
-            controller: _pageController,
-            onPageChanged: (int page) {
-              setState(() {
-                _currentpage = page;
-              });
-            },
+    return LayoutBuilder(
+      builder: (context, constrains) {
+        if (constrains.maxWidth < 945) {
+         return Column(
             children: [
-              services('assets/images/Icon-133.png', 'Доставка авто', 'Бесплатная доставка в любую точку города в течение часа'),
-              services('assets/images/I-165.png', 'Страхование', 'Полное Страхование и техническая поддержка 24/7'),
-              services('assets/images/I-154.png', 'Персональный менеджер', 'Индивидуальное сопровождение и консультации'),
-              services('assets/images/I-143.png', 'Гибкие условия', 'Аренда от 1 часа до нескольких месяцев')
-            ],
-          ),
-        ),
-         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: List.generate(4, (index) {
-            return Container (
-              width: 10,
-              height: 10,
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _currentpage == index ? Colors.amber : Colors.white
+              SizedBox(
+                height: 200,
+                child: PageView(
+                  controller: _pageController,
+                  onPageChanged: (int page) {
+                    setState(() {
+                      _currentpage = page;
+                    });
+                  },
+                  children: [
+                    services('assets/images/Icon-133.png', 'Доставка авто', 'Бесплатная доставка в любую точку города в течение часа'),
+                    services('assets/images/I-165.png', 'Страхование', 'Полное Страхование и техническая поддержка 24/7'),
+                    services('assets/images/I-154.png', 'Персональный менеджер', 'Индивидуальное сопровождение и консультации'),
+                    services('assets/images/I-143.png', 'Гибкие условия', 'Аренда от 1 часа до нескольких месяцев')
+                  ],
+                ),
               ),
-            );
-          })
-        ),
-      ],
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: List.generate(4, (index) {
+                  return Container (
+                    width: 10,
+                    height: 10,
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: _currentpage == index ? Colors.amber : Colors.white
+                    ),
+                  );
+                })
+              ),
+            ],
+          );
+        } else if (constrains.maxWidth < 1200) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                children: [
+                  services('assets/images/Icon-133.png', 'Доставка авто', 'Бесплатная доставка в любую точку города в течение часа'),
+                  services('assets/images/I-165.png', 'Страхование', 'Полное Страхование и техническая поддержка 24/7'),
+                ],
+              ), 
+              Column(
+                children: [
+                  services('assets/images/I-154.png', 'Персональный менеджер', 'Индивидуальное сопровождение и консультации'),
+                  services('assets/images/I-143.png', 'Гибкие условия', 'Аренда от 1 часа до нескольких месяцев')
+                ],
+              )
+            ],
+          );
+        } else {
+          return Column(
+            children: [
+              SizedBox(
+                height: 200,
+                child: PageView.builder(
+                  controller: _pageController,
+                  onPageChanged: (int page) {
+                    setState(() {
+                      _currentpage = page;
+                    });
+                  },
+                  itemBuilder: (contex, page) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        services('assets/images/Icon-133.png', 'Доставка авто', 'Бесплатная доставка в любую точку города в течение часа'),
+                        services('assets/images/I-165.png', 'Страхование', 'Полное Страхование и техническая поддержка 24/7'),
+                        services('assets/images/I-154.png', 'Персональный менеджер', 'Индивидуальное сопровождение и консультации'),
+                        services('assets/images/I-143.png', 'Гибкие условия', 'Аренда от 1 часа до нескольких месяцев'),
+                      ],
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        }
+      }
+      
     );
   }
 }
