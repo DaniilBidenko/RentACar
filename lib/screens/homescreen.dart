@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 import 'package:rent_a_car_auto/widgets/appbar_widget.dart';
 import 'package:rent_a_car_auto/widgets/cars_slider.dart';
-import 'package:rent_a_car_auto/widgets/footer_slider.dart';
 import 'package:rent_a_car_auto/widgets/services_slider.dart';
 import 'package:textuality/textuality.dart';
 

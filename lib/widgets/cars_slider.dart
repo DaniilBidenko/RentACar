@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rent_a_car_auto/sliders/cars_slider_bloc.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 
 class CarsSlider extends StatefulWidget{
@@ -19,41 +21,45 @@ class CarsSliderState extends State<CarsSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-        height: 500,
-        child: PageView(
-          controller: _pageController,
-          onPageChanged: (int page) {
-            setState(() {
-              _currentpage = page;
-            });
-          },
+    return BlocBuilder<CarsSliderBloc, int>(
+      builder: (context, state) {
+        return Column(
           children: [
-            card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}),
-            card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}),
-            card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {})
+            SizedBox(
+            height: 500,
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (int page) {
+                setState(() {
+                  _currentpage = page;
+                });
+              },
+              children: [
+                card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}),
+                card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}),
+                card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {})
+              ],
+            ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(3, (index) {
+                return Container (
+                  width: 10,
+                  height: 10,
+                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _currentpage == index ? Color.fromRGBO(234, 179, 8, 1) : Colors.white
+                  ),
+                );
+              })
+            ),
+            
           ],
-        ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(3, (index) {
-            return Container (
-              width: 10,
-              height: 10,
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _currentpage == index ? Color.fromRGBO(234, 179, 8, 1) : Colors.white
-              ),
-            );
-          })
-        ),
-        
-      ],
-    );
+        );
+      }
+      );
   }
 }
 
