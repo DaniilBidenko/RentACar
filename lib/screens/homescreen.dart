@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_car_auto/screens/bronirovanie_screen.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 import 'package:rent_a_car_auto/widgets/appbar_widget.dart';
 import 'package:rent_a_car_auto/widgets/cars_slider.dart';
@@ -204,7 +205,6 @@ class Homescreen extends StatelessWidget{
                       LayoutBuilder(
                         builder: (context, constrains) {
                           if (constrains.maxWidth < 1400) {
-                            double width = MediaQuery.of(context).size.width;
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -247,7 +247,7 @@ class Homescreen extends StatelessWidget{
               if (constrains.maxWidth < 945) {
                 return Container(
                   width: width,
-                  height: width < 945 ? height * 0.8 : height * 1,
+                  height: width < 945 ? height * 0.7 : height * 1,
                   color: Color.fromRGBO(17, 24, 39, 1),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -388,7 +388,9 @@ class Homescreen extends StatelessWidget{
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black
                         ),
-                        onPressed: () {}, 
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => BronirovanieScreen()));
+                        }, 
                         child: Center(
                           child: Text('Забронировать сейчас',
                             style: TextStyle(

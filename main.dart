@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rent_a_car_auto/screens/bronirovanie_screen.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
-import 'package:rent_a_car_auto/sliders/cars_slider_bloc.dart';
+import 'package:rent_a_car_auto/blocs/sliders/cars_slider_bloc.dart';
+import 'package:rent_a_car_auto/blocs/sliders/services_slider_bloc.dart';
 
 
 void main () {
@@ -20,10 +22,15 @@ class RentACar extends StatelessWidget {
               final bloc = CarsSliderBloc();
               return bloc;
             }
-          
-          )
+          ),
+          BlocProvider(
+            create: (BuildContext context) {
+              final servisbloc = ServicesSliderBloc();
+              return servisbloc;
+            }
+          ),
         ], 
-        child: Homescreen()
+        child: BronirovanieScreen()
       )
     );
   }

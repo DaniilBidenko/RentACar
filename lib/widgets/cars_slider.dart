@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rent_a_car_auto/sliders/cars_slider_bloc.dart';
+import 'package:rent_a_car_auto/blocs/sliders/cars_slider_bloc.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 
-class CarsSlider extends StatefulWidget{
-  CarsSlider({Key? key}) : super(key: key);
-  @override
-  State<CarsSlider> createState() => CarsSliderState();
-}
-
-class CarsSliderState extends State<CarsSlider> {
+class CarsSlider extends StatelessWidget{
+  
   final PageController _pageController = PageController();
-  int _currentpage = 0;
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CarsSliderBloc, int>(
@@ -30,9 +18,7 @@ class CarsSliderState extends State<CarsSlider> {
             child: PageView(
               controller: _pageController,
               onPageChanged: (int page) {
-                setState(() {
-                  _currentpage = page;
-                });
+                context.read<CarsSliderBloc>().carsslider();
               },
               children: [
                 card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}),
@@ -41,21 +27,6 @@ class CarsSliderState extends State<CarsSlider> {
               ],
             ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(3, (index) {
-                return Container (
-                  width: 10,
-                  height: 10,
-                  margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _currentpage == index ? Color.fromRGBO(234, 179, 8, 1) : Colors.white
-                  ),
-                );
-              })
-            ),
-            
           ],
         );
       }
