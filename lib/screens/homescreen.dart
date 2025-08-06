@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_a_car_auto/screens/bronirovanie_screen.dart';
+import 'package:rent_a_car_auto/screens/katalog_screen.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 import 'package:rent_a_car_auto/widgets/appbar_widget.dart';
 import 'package:rent_a_car_auto/widgets/cars_slider.dart';
@@ -71,19 +72,20 @@ class Homescreen extends StatelessWidget{
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: width < 945 ? 5 : 17, vertical: 12),
                                 child: Container(
-                                  width: width < 945? width * 0.31 : width * 0.155,
+                                  width: width < 945? width * 0.35 : width * 0.155,
                                   height: width < 945? height * 0.065 : height * 0.075,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Color.fromRGBO(234, 179, 8, 1)
                                     ),
-                                    onPressed: () {}, 
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => KatalogScreen()));
+                                    }, 
                                         child: Text('Выбрать автомобиль',
-                                          overflow: TextOverflow.visible,
                                           softWrap: false,
                                           maxLines: 1,
                                             style: TextStyle(
-                                              fontSize: width < 945 ? width * 0.025 : width * 0.011,
+                                              fontSize: width < 945 ? width * 0.025 : width * 0.01,
                                               fontWeight: FontWeight.w900,
                                               color: Color.fromRGBO(0, 0, 0, 1),
                                               fontFamily: 'Roboto'
@@ -95,17 +97,11 @@ class Homescreen extends StatelessWidget{
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: width < 945 ? 5 : 0, vertical: 5),
                                   child: Container(
-                                    width: width < 945 ? width * 0.25 : width * 0.12,
+                                    width: width < 945 ? width * 0.30 : width * 0.12,
                                     height: width < 945? height * 0.065 : height * 0.075,
-                                    decoration: BoxDecoration(
-                                      color: Colors.transparent,
-                                      borderRadius: BorderRadius.all(Radius.circular(9999)),
-                                      border: Border.all(color: Colors.white, width: 2)
-                                    ),
                                     child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.transparent,
-                                        shadowColor: Colors.transparent
+                                        backgroundColor: Color.fromRGBO(234, 179, 8, 1),
                                       ),
                                       onPressed: () {}, 
                                       child: Center(
@@ -114,9 +110,9 @@ class Homescreen extends StatelessWidget{
                                         maxLines: 1,
                                           style: TextStyle(
                                             fontSize: width < 945 ? width * 0.025 : width * 0.009,
-                                            fontWeight: FontWeight.w700,
+                                            fontWeight: FontWeight.w900,
                                             fontFamily: 'Roboto',
-                                            color: Color.fromRGBO(255, 255, 255, 1)
+                                            color: Colors.black
                                           )
                                         ),
                                       )
@@ -136,47 +132,84 @@ class Homescreen extends StatelessWidget{
           ),
           LayoutBuilder(
             builder: (context, constrains) {
-              if (constrains.maxWidth < 945) {
+              if (constrains.maxWidth < 600) {
                 return Container(
-            width: width,
-            height: height * 1.1,
-            color: Colors.black,
-            child: Padding(
-              padding: EdgeInsets.only(
-                top: 50,
-                left: 50,
-                right: 50,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                 Text('Премиальная коллекция',
-                  style: HomescreenStyle.title(context)
-                 ),
-                 Padding(padding: EdgeInsets.only(top: 0, left: 0, right: 0),
-                  child: Flexible(
-                    flex: 2,
-                    child: Center(
-                      child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                        style: HomescreenStyle.lowDescriprion(context),
+                  width: width,
+                  height: height * 1,
+                  color: Colors.black,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 50,
+                      left: 0,
+                      right: 0,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                      Text('Премиальная коллекция',
+                        style: HomescreenStyle.title(context)
                       ),
+                      Padding(padding: EdgeInsets.only(top: 0, left: 0, right: 0),
+                        child: Flexible(
+                          flex: 2,
+                          child: Center(
+                            child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                              style: HomescreenStyle.lowDescriprion(context),
+                            ),
+                          )
+                        )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 40),
+                        child: CarsSlider()
+                        )
+                      ],
+                    ),
+                  )
+                );
+              } else if (constrains.maxWidth < 945) {
+                return Container(
+                  width: width,
+                  height:height * 2.6,
+                  color: const Color.fromRGBO(0, 0, 0, 1),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 80,
+                      left: 50,
+                      right: 50,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Премиальная коллекция',
+                          style: HomescreenStyle.title(context)
+                        ),
+                        Padding(padding: EdgeInsets.only(top: 30, left: 110, right: 110),
+                          child: Flexible(
+                            flex: 2,
+                            child: Center(
+                              child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                                style: HomescreenStyle.lowDescriprion(context),
+                              ),
+                            )
+                          )
+                        ),
+                        card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000 ₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}, context),
+                        card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000 ₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}, context),
+                        card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000 ₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {}, context)
+                      ]
                     )
                   )
-                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 40),
-                  child: CarsSlider()
-                  )
-                ],
-              ),
-            )
-          );
+                );
               } else {
                 return Container(
                   width: width,
-                  height: width < 1500 ? height * 2 : height * 1.3,
+                  height: width < 1500 ? height * 2 : height * 1.3 ,
                   color: Colors.black,
                   child: Padding(
                     padding: EdgeInsets.only(
@@ -204,17 +237,17 @@ class Homescreen extends StatelessWidget{
                       ),
                       LayoutBuilder(
                         builder: (context, constrains) {
-                          if (constrains.maxWidth < 1400) {
+                           if (constrains.maxWidth < 1400) {
                             return Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}),
+                                card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000 ₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}, context),
                                 Padding(padding: EdgeInsets.only(top: 50),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}),
-                                    card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {})
+                                    card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000 ₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}, context),
+                                    card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000 ₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {}, context)
                                   ],
                                 )
                                 )
@@ -226,9 +259,9 @@ class Homescreen extends StatelessWidget{
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}),
-                                    card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}),
-                                    card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {})
+                                    card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000 ₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}, context),
+                                    card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000 ₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}, context),
+                                    card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000 ₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {}, context)
                                   ],
                               ),
                             );
@@ -247,7 +280,7 @@ class Homescreen extends StatelessWidget{
               if (constrains.maxWidth < 945) {
                 return Container(
                   width: width,
-                  height: width < 945 ? height * 0.7 : height * 1,
+                  height: width < 945 ? height * 0.6 : height * 1,
                   color: Color.fromRGBO(17, 24, 39, 1),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -335,7 +368,7 @@ class Homescreen extends StatelessWidget{
             ),
           Container(
             width: width,
-            height: width < 945 ? height * 0.6 : height * 0.7,
+            height: width < 945 ? height * 0.55 : height * 0.7,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
@@ -353,14 +386,14 @@ class Homescreen extends StatelessWidget{
                 Padding(padding: EdgeInsets.only(top: 60, bottom: 20),
                   child: Text('Готовы к незабываемому опыту?',
                   style: TextStyle(
-                    fontSize: width < 945 ? width * 0.06 : width * 0.05,
+                    fontSize: width < 945 ? width * 0.05 : width * 0.05,
                     fontWeight: FontWeight.w700,
                     fontFamily: 'Roboto',
                     color: Color.fromRGBO(0, 0, 0, 1)
                   ),
                 ),
                 ),
-                  Padding(padding: EdgeInsets.only(left: width < 945 ? 0 : width * 0.05, right: width < 945 ? 0 : width * 0.05),
+                  Padding(padding: EdgeInsets.only(left: width < 945 ? width * 0.05 : width * 0.05, right: width < 945 ? width * 0.05 : width * 0.05),
                     child: Flexible(
                       flex: 2,
                     child: Center(
@@ -368,7 +401,7 @@ class Homescreen extends StatelessWidget{
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: width < 945 ? width * 0.03 : width * 0.02,
+                        fontSize: width < 945 ? width * 0.025 : width * 0.02,
                         fontWeight: FontWeight.w400,
                         color: Colors.black
                       ),
@@ -381,8 +414,8 @@ class Homescreen extends StatelessWidget{
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: width < 945 ? width * 0.5 : width * 0.275,
-                        height: width < 945 ? height * 0.085 : height * 0.125,
+                        width: width < 945 ? width * 0.43 : width * 0.275,
+                        height: width < 945 ? height * 0.075 : height * 0.125,
                         color: Colors.transparent,
                         child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -469,7 +502,7 @@ class Homescreen extends StatelessWidget{
                                             style: HomescreenStyle.lowDescriprion(context),
                                             )
                                           ),
-                                          Padding(padding: EdgeInsets.only(left: 0, right: width * 0.15),
+                                          Padding(padding: EdgeInsets.only(left: 0, right: width * 0.2),
                                           child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
@@ -519,78 +552,58 @@ class Homescreen extends StatelessWidget{
               );
               } else {
                 return Container(
-            width: 1550,
-            height: 350,
-            color: Color.fromRGBO(0, 0, 0, 1),
-            child: Column(  
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(50),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  width: width,
+                  height: height * 0.6,
+                  color: Color.fromRGBO(0, 0, 0, 1),
+                  child: Column(  
                     children: [
-                            Container(
-                              width: 270,
-                              height: 164,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text('EliteRent',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(250, 204, 21, 1),
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w400
+                      Padding(
+                        padding: EdgeInsets.all(30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                                  Container(
+                                    width: width * 0.25,
+                                    height: height * 0.3,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text('EliteRent',
+                                          style: TextStyle(
+                                            color: Color.fromRGBO(250, 204, 21, 1),
+                                            fontSize: 24,
+                                            fontWeight: FontWeight.w400
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: Text('Премиальный прокат экслюзивных автомобилей в Москве',
+                                          style: HomescreenStyle.lowDescriprion(context),
+                                          )
+                                        ),
+                                      Padding(padding: EdgeInsets.only(left: 0, right: width * 0.11),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                        messangers('assets/images/Icon-203.png'),
+                                        messangers('assets/images/Icon-206.png'),
+                                        messangers('assets/images/I-208.png'),
+                                        ],
+                                      ),
+                                      )
+                                      ],
                                     ),
                                   ),
-                                  Flexible(
-                                    child: Text('Премиальный прокат экслюзивных автомобилей в Москве',
-                                    style: HomescreenStyle.lowDescriprion(context),
-                                    )
-                                  ),
-                                Padding(padding: EdgeInsets.only(left: 0, right: 0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                  messangers('assets/images/Icon-203.png'),
-                                  messangers('assets/images/Icon-206.png'),
-                                  messangers('assets/images/I-208.png'),
-                                  ],
-                                ),
-                                )
+                                        lowContainer('Автомобили', 'Люкс класс', 'Спорткар', 'Экзотическое', 'Классические', context),
+                                        lowContainer('Услуги', 'Доставка', 'С водителем', 'Мероприятия', 'Долгосрочная аренда', context),
+                                        lowContainer('Контакты', '+7 (495) 123-45-67', 'info@elitrent.ru', 'Москва, ул. Тверская, 15', 'Работаем 24/7', context)
                                 ],
                               ),
                             ),
-                                  lowContainer('Автомобили', 'Люкс класс', 'Спорткар', 'Экзотическое', 'Классические', context),
-                                  lowContainer('Услуги', 'Доставка', 'С водителем', 'Мероприятия', 'Долгосрочная аренда', context),
-                                  lowContainer('Контакты', '+7 (495) 123-45-67', 'info@elitrent.ru', 'Москва, ул. Тверская, 15', 'Работаем 24/7', context)
+                           
                           ],
-                        ),
-                      ),
-                      Container(
-                        width: 1280,
-                        height: 57,
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border(
-                            top:BorderSide(
-                              width: 1,
-                              color: Color.fromRGBO(31, 41, 55, 1)
-                            )
-                          )
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(),
-                          child: Center(
-                            child: Text('© 2024 EliteRent. Все права защищены.',
-                              style: HomescreenStyle.lowDescriprion(context),
-                            ),
-                          )
-                        ),
-                      ),
-                    ],
-                  )
-                );
+                        )
+                      );
               }
 
             }
@@ -608,10 +621,10 @@ Widget lowContainer (String title, String descriprion, String firstDescriprion, 
     double height = MediaQuery.of(context).size.height;
   return Container(
     width: width < 945 ? width * 0.45 : 150,
-    height: width < 945 ? height * 0.3 : 164,
+    height: width < 945 ? height * 0.3 : height * 0.5,
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Padding(padding: EdgeInsets.only(bottom: 18),
             child: Text(title,

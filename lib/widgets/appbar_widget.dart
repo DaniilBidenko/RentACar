@@ -17,8 +17,6 @@ class _AppBarWidgetState extends State<AppbarWidget> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    double buttonWidth = width * 0.1;
-    double buttonHeight = height * 0.1;
     return AppBar(
       automaticallyImplyLeading: false,
       backgroundColor: Colors.transparent,
@@ -26,7 +24,7 @@ class _AppBarWidgetState extends State<AppbarWidget> {
         child: 
             LayoutBuilder(
               builder: (context, constrains) {
-                if (constrains.maxWidth < 600) {
+                if (constrains.maxWidth < 1000) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -34,9 +32,10 @@ class _AppBarWidgetState extends State<AppbarWidget> {
                         style: HomescreenStyle.logoStyle(context),
                       ),
                       PopupMenuButton<Menu>(
+                        iconSize: width * 0.06,
                         iconColor: Colors.amber,
                         color: Colors.transparent,
-                        icon: const Icon(Icons.more_vert),
+                        icon: const Icon(Icons.menu),
                         onSelected: (Menu item) {},
                         itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>> [
                           PopupMenuItem(
@@ -133,7 +132,7 @@ class _AppBarWidgetState extends State<AppbarWidget> {
                       LayoutBuilder(
                         builder: (context, constraints) {
                           double buttonPaddingLeft = width < 945 ? width * 0.05 : width * 0.24;
-                          double buttonPaddingRight = width < 945 ? width * 0.05 : width * 0.28;
+                          double buttonPaddingRight = width < 945 ? width * 0.05 : width * 0.27;
 
                           return Padding(
                             padding: EdgeInsets.only(left: buttonPaddingLeft, right: buttonPaddingRight),

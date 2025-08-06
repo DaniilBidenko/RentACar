@@ -5,12 +5,10 @@ import 'package:rent_a_car_auto/blocs/sliders/services_slider_bloc.dart';
 class ServicesSlider extends StatelessWidget{
   
   final PageController _pageController = PageController();
-
+  int currentPage = 0;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ServicesSliderBloc, int>(
-      builder: (context, state) {
-        return LayoutBuilder(
+    return LayoutBuilder(
           builder: (context, constrains) {
             if (constrains.maxWidth < 945) {
             return Column(
@@ -79,8 +77,6 @@ class ServicesSlider extends StatelessWidget{
           }
         );
       }
-    );
-  }
 }
 
 Widget services (String  icon, String label, String lowerText) {
@@ -133,9 +129,6 @@ Widget services (String  icon, String label, String lowerText) {
 }
 
 Widget smallServises (String img, String label, String descriprion) {
-  PageController controller = PageController();
-    return BlocBuilder<ServicesSliderBloc, int>(
-      builder: (context, state) {
         return Container(
           width: 300,
           height: 200,
@@ -183,23 +176,8 @@ Widget smallServises (String img, String label, String descriprion) {
                     ),
                   )
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        for (int i = 0; i < 4; i++) 
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CircleAvatar(
-                            radius: 5,
-                            backgroundColor: state == i ? Colors.blue : Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
               ],
             ),
           ),
         );
-      }
-    );
 }

@@ -7,7 +7,7 @@ class HomescreenStyle {
     double width = MediaQuery.of(context).size.width;
 
     return TextStyle(
-    fontSize: width < 945 ? width * 0.03 : width * 0.03,
+    fontSize: width < 945 ? width * 0.045 : width * 0.03,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(255, 255, 255, 1),
     fontFamily: 'Roboto'
@@ -38,9 +38,9 @@ class HomescreenStyle {
     double width = MediaQuery.of(context).size.width;
 
     return TextStyle(
-      fontSize: width < 945 ? width * 0.02 : width * 0.015,
+      fontSize: width < 945 ? width * 0.025 : width * 0.015,
     fontWeight: FontWeight.w400,
-    color: Color.fromRGBO(209, 213, 219, 1),
+    color: Colors.white,
     fontFamily: 'Roboto'
     );
   }
@@ -102,7 +102,7 @@ class HomescreenStyle {
   static TextStyle lowDescriprion (BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return TextStyle(
-    fontSize: width < 945 ? width * 0.02 : width * 0.01,
+    fontSize: width < 945 ? width * 0.020 : width * 0.012,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(156, 163, 175, 1),
     fontFamily: 'Roboto'

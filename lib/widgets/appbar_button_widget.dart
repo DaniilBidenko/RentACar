@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_car_auto/screens/catalog_screen.dart';
+import 'package:rent_a_car_auto/screens/faq_screen.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
@@ -32,10 +34,13 @@ class _AppBarButtonWidgetState extends State<AppbarButtonWidget> {
                   Navigator.push(context, MaterialPageRoute(builder: (_) => Homescreen()));
                 }, HomescreenStyle.appbarButtonTextStyle(context), buttonWidth, buttonHeight),
                 appbarButtons('Каталог', () {
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => KatalogScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => CatalogScreen()));
                 }, HomescreenStyle.appbarButtonTextStyle(context), buttonWidth, buttonHeight),
-                appbarButtons('О Нас', () {}, HomescreenStyle.appbarButtonTextStyle(context), buttonWidth, buttonHeight),
+                appbarButtons('FAQ', () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => FaqScreen()));
+                }, HomescreenStyle.appbarButtonTextStyle(context), buttonWidth, buttonHeight),
                 appbarButtons('Контакты', () {}, HomescreenStyle.appbarButtonTextStyle(context), buttonWidth, buttonHeight),
+
               ],
             );
           },

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_bloc.dart';
+import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_state.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 import 'package:rent_a_car_auto/widgets/appbar_widget.dart';
+import 'package:rent_a_car_auto/widgets/cars_card.dart';
 
 class KatalogScreen extends StatelessWidget{
 @override
@@ -80,18 +84,17 @@ Widget build(BuildContext context) {
                 builder: (context, constrains) {
                   if (constrains.maxWidth < 600) {
                     return Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.only(right: 10, left: 10),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          card(context, 'assets/images/kollection_lamborgini.png', 'Lamborghini Huracán', 'Итальянский суперкар с невероятной динамикой и завораживающим дизайном', 15, 610, 325, 3.2, () {}),
-                          card(context, 'assets/images/ferrari485.png', 'Ferrari 488 GTB', 'Легендарный Ferrari с турбированным V8 и исключительными характеристиками', 15, 610, 325, 3.2, () {}),
-                          card(context, 'assets/images/porsche911.png', 'Porsche 911 Turbo S', 'Британский суперкар с революционной аэродинамикой', 15, 610, 325, 3.2, () {}),
-                          card(context, 'assets/images/maclaren720s.png', 'McLaren 720S', 'Британский суперкар с революционной аэродинамикой', 20, 720, 341, 2.9, () {}),
-                          card(context, 'assets/images/bentley.png', 'Bentley Continental GT', 'Британская роскошь и комфорт в спортивном исполнении', 8, 635, 333, 3.7, () {}),
-                          card(context, 'assets/images/astonmartindb11.png', 'Aston Martin DB11', 'Классическая британская элегантность с современными технологиями', 10, 630, 322, 3.9, () {}),
-                          card(context, 'assets/images/rollsroysghost.png', 'Rolls-Royce Ghost', 'Эталон роскоши и комфорта в автомобильном мире', 25, 571, 250, 4.8, () {}),
-                          card(context, 'assets/images/ferrarif8tributo.png', 'Ferrari F8 Tributo', 'Новейшая разработка Ferrari с впечатляющими характеристиками', 16, 730, 340, 2.9, () {})
+                          katalogcard(context, 'assets/images/kollection_lamborgini.png', 'Lamborghini Huracán', 'Итальянский суперкар с невероятной динамикой и завораживающим дизайном', 15, 610, 325, 3.2, () {}),
+                          katalogcard(context, 'assets/images/ferrari485.png', 'Ferrari 488 GTB', 'Легендарный Ferrari с турбированным V8 и исключительными характеристиками', 15, 610, 325, 3.2, () {}),
+                          katalogcard(context, 'assets/images/porsche911.png', 'Porsche 911 Turbo S', 'Британский суперкар с революционной аэродинамикой', 15, 610, 325, 3.2, () {}),
+                          katalogcard(context, 'assets/images/maclaren720s.png', 'McLaren 720S', 'Британский суперкар с революционной аэродинамикой', 20, 720, 341, 2.9, () {}),
+                          katalogcard(context, 'assets/images/bentley.png', 'Bentley Continental GT', 'Британская роскошь и комфорт в спортивном исполнении', 8, 635, 333, 3.7, () {}),
+                          katalogcard(context, 'assets/images/astonmartindb11.png', 'Aston Martin DB11', 'Классическая британская элегантность с современными технологиями', 10, 630, 322, 3.9, () {}),
+                          katalogcard(context, 'assets/images/rollsroysghost.png', 'Rolls-Royce Ghost', 'Эталон роскоши и комфорта в автомобильном мире', 25, 571, 250, 4.8, () {}),
+                          katalogcard(context, 'assets/images/ferrarif8tributo.png', 'Ferrari F8 Tributo', 'Новейшая разработка Ferrari с впечатляющими характеристиками', 16, 730, 340, 2.9, () {})
                         ],
                       ),
                     );
@@ -101,18 +104,18 @@ Widget build(BuildContext context) {
                       children: [
                         Column(
                           children: [
-                            card(context, 'assets/images/kollection_lamborgini.png', 'Lamborghini Huracán', 'Итальянский суперкар с невероятной динамикой и завораживающим дизайном', 15, 610, 325, 3.2, () {}),
-                            card(context, 'assets/images/ferrari485.png', 'Ferrari 488 GTB', 'Легендарный Ferrari с турбированным V8 и исключительными характеристиками', 15, 610, 325, 3.2, () {}),
-                            card(context, 'assets/images/porsche911.png', 'Porsche 911 Turbo S', 'Британский суперкар с революционной аэродинамикой', 15, 610, 325, 3.2, () {}),
-                            card(context, 'assets/images/maclaren720s.png', 'McLaren 720S', 'Британский суперкар с революционной аэродинамикой', 20, 720, 341, 2.9, () {}),
+                            katalogcard(context, 'assets/images/kollection_lamborgini.png', 'Lamborghini Huracán', 'Итальянский суперкар с невероятной динамикой и завораживающим дизайном', 15, 610, 325, 3.2, () {}),
+                            katalogcard(context, 'assets/images/ferrari485.png', 'Ferrari 488 GTB', 'Легендарный Ferrari с турбированным V8 и исключительными характеристиками', 15, 610, 325, 3.2, () {}),
+                            katalogcard(context, 'assets/images/porsche911.png', 'Porsche 911 Turbo S', 'Британский суперкар с революционной аэродинамикой', 15, 610, 325, 3.2, () {}),
+                            katalogcard(context, 'assets/images/maclaren720s.png', 'McLaren 720S', 'Британский суперкар с революционной аэродинамикой', 20, 720, 341, 2.9, () {}),
                           ],
                         ),
                         Column(
                           children: [
-                            card(context, 'assets/images/bentley.png', 'Bentley Continental GT', 'Британская роскошь и комфорт в спортивном исполнении', 8, 635, 333, 3.7, () {}),
-                            card(context, 'assets/images/astonmartindb11.png', 'Aston Martin DB11', 'Классическая британская элегантность с современными технологиями', 10, 630, 322, 3.9, () {}),
-                            card(context, 'assets/images/rollsroysghost.png', 'Rolls-Royce Ghost', 'Эталон роскоши и комфорта в автомобильном мире', 25, 571, 250, 4.8, () {}),
-                            card(context, 'assets/images/ferrarif8tributo.png', 'Ferrari F8 Tributo', 'Новейшая разработка Ferrari с впечатляющими характеристиками', 16, 730, 340, 2.9, () {})
+                            katalogcard(context, 'assets/images/bentley.png', 'Bentley Continental GT', 'Британская роскошь и комфорт в спортивном исполнении', 8, 635, 333, 3.7, () {}),
+                            katalogcard(context, 'assets/images/astonmartindb11.png', 'Aston Martin DB11', 'Классическая британская элегантность с современными технологиями', 10, 630, 322, 3.9, () {}),
+                            katalogcard(context, 'assets/images/rollsroysghost.png', 'Rolls-Royce Ghost', 'Эталон роскоши и комфорта в автомобильном мире', 25, 571, 250, 4.8, () {}),
+                            katalogcard(context, 'assets/images/ferrarif8tributo.png', 'Ferrari F8 Tributo', 'Новейшая разработка Ferrari с впечатляющими характеристиками', 16, 730, 340, 2.9, () {})
                           ],
                         )
                       ],
@@ -124,24 +127,24 @@ Widget build(BuildContext context) {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            card(context, 'assets/images/kollection_lamborgini.png', 'Lamborghini Huracán', 'Итальянский суперкар с невероятной динамикой и завораживающим дизайном', 15, 610, 325, 3.2, () {}),
-                            card(context, 'assets/images/ferrari485.png', 'Ferrari 488 GTB', 'Легендарный Ferrari с турбированным V8 и исключительными характеристиками', 15, 610, 325, 3.2, () {}),
-                            card(context, 'assets/images/porsche911.png', 'Porsche 911 Turbo S', 'Британский суперкар с революционной аэродинамикой', 15, 610, 325, 3.2, () {}),
+                            katalogcard(context, 'assets/images/kollection_lamborgini.png', 'Lamborghini Huracán', 'Итальянский суперкар с невероятной динамикой и завораживающим дизайном', 15, 610, 325, 3.2, () {}),
+                            katalogcard(context, 'assets/images/ferrari485.png', 'Ferrari 488 GTB', 'Легендарный Ferrari с турбированным V8 и исключительными характеристиками', 15, 610, 325, 3.2, () {}),
+                            katalogcard(context, 'assets/images/porsche911.png', 'Porsche 911 Turbo S', 'Британский суперкар с революционной аэродинамикой', 15, 610, 325, 3.2, () {}),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            card(context, 'assets/images/maclaren720s.png', 'McLaren 720S', 'Британский суперкар с революционной аэродинамикой', 20, 720, 341, 2.9, () {}),
-                            card(context, 'assets/images/bentley.png', 'Bentley Continental GT', 'Британская роскошь и комфорт в спортивном исполнении', 8, 635, 333, 3.7, () {}),
-                            card(context, 'assets/images/astonmartindb11.png', 'Aston Martin DB11', 'Классическая британская элегантность с современными технологиями', 10, 630, 322, 3.9, () {}),
+                            katalogcard(context, 'assets/images/maclaren720s.png', 'McLaren 720S', 'Британский суперкар с революционной аэродинамикой', 20, 720, 341, 2.9, () {}),
+                            katalogcard(context, 'assets/images/bentley.png', 'Bentley Continental GT', 'Британская роскошь и комфорт в спортивном исполнении', 8, 635, 333, 3.7, () {}),
+                            katalogcard(context, 'assets/images/astonmartindb11.png', 'Aston Martin DB11', 'Классическая британская элегантность с современными технологиями', 10, 630, 322, 3.9, () {}),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            card(context, 'assets/images/rollsroysghost.png', 'Rolls-Royce Ghost', 'Эталон роскоши и комфорта в автомобильном мире', 25, 571, 250, 4.8, () {}),
-                            card(context, 'assets/images/ferrarif8tributo.png', 'Ferrari F8 Tributo', 'Новейшая разработка Ferrari с впечатляющими характеристиками', 16, 730, 340, 2.9, () {})
+                            katalogcard(context, 'assets/images/rollsroysghost.png', 'Rolls-Royce Ghost', 'Эталон роскоши и комфорта в автомобильном мире', 25, 571, 250, 4.8, () {}),
+                            katalogcard(context, 'assets/images/ferrarif8tributo.png', 'Ferrari F8 Tributo', 'Новейшая разработка Ferrari с впечатляющими характеристиками', 16, 730, 340, 2.9, () {})
                           ],
                         )
                       ],
@@ -159,19 +162,19 @@ Widget build(BuildContext context) {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                card(context, 'assets/images/kollection_lamborgini.png', 'Lamborghini Huracán', 'Итальянский суперкар с невероятной динамикой и завораживающим дизайном', 15, 610, 325, 3.2, () {}),
-                                card(context, 'assets/images/ferrari485.png', 'Ferrari 488 GTB', 'Легендарный Ferrari с турбированным V8 и исключительными характеристиками', 15, 610, 325, 3.2, () {}),
-                                card(context, 'assets/images/porsche911.png', 'Porsche 911 Turbo S', 'Британский суперкар с революционной аэродинамикой', 15, 610, 325, 3.2, () {}),
-                                card(context, 'assets/images/maclaren720s.png', 'McLaren 720S', 'Британский суперкар с революционной аэродинамикой', 20, 720, 341, 2.9, () {})
+                                katalogcard(context, 'assets/images/kollection_lamborgini.png', 'Lamborghini Huracán', 'Итальянский суперкар с невероятной динамикой и завораживающим дизайном', 15, 610, 325, 3.2, () {}),
+                                katalogcard(context, 'assets/images/ferrari485.png', 'Ferrari 488 GTB', 'Легендарный Ferrari с турбированным V8 и исключительными характеристиками', 15, 610, 325, 3.2, () {}),
+                                katalogcard(context, 'assets/images/porsche911.png', 'Porsche 911 Turbo S', 'Британский суперкар с революционной аэродинамикой', 15, 610, 325, 3.2, () {}),
+                                katalogcard(context, 'assets/images/maclaren720s.png', 'McLaren 720S', 'Британский суперкар с революционной аэродинамикой', 20, 720, 341, 2.9, () {})
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                card(context, 'assets/images/bentley.png', 'Bentley Continental GT', 'Британская роскошь и комфорт в спортивном исполнении', 8, 635, 333, 3.7, () {}),
-                                card(context, 'assets/images/astonmartindb11.png', 'Aston Martin DB11', 'Классическая британская элегантность с современными технологиями', 10, 630, 322, 3.9, () {}),
-                                card(context, 'assets/images/rollsroysghost.png', 'Rolls-Royce Ghost', 'Эталон роскоши и комфорта в автомобильном мире', 25, 571, 250, 4.8, () {}),
-                                card(context, 'assets/images/ferrarif8tributo.png', 'Ferrari F8 Tributo', 'Новейшая разработка Ferrari с впечатляющими характеристиками', 16, 730, 340, 2.9, () {})
+                                katalogcard(context, 'assets/images/bentley.png', 'Bentley Continental GT', 'Британская роскошь и комфорт в спортивном исполнении', 8, 635, 333, 3.7, () {}),
+                                katalogcard(context, 'assets/images/astonmartindb11.png', 'Aston Martin DB11', 'Классическая британская элегантность с современными технологиями', 10, 630, 322, 3.9, () {}),
+                                katalogcard(context, 'assets/images/rollsroysghost.png', 'Rolls-Royce Ghost', 'Эталон роскоши и комфорта в автомобильном мире', 25, 571, 250, 4.8, () {}),
+                                katalogcard(context, 'assets/images/ferrarif8tributo.png', 'Ferrari F8 Tributo', 'Новейшая разработка Ferrari с впечатляющими характеристиками', 16, 730, 340, 2.9, () {})
                               ],
                             )
                           ],
@@ -249,7 +252,7 @@ Widget classAuto (Color buttonColor, VoidCallback navigation, String label, Colo
   double width = MediaQuery.of(context).size.width;
   double height = MediaQuery.of(context).size.height;
     return Container(
-      width: width < 945 ? width * 0.18 : width * 0.12,
+      width: width < 945 ? width * 0.18 : width * 0.14,
       height: width < 945 ?  height * 0.035 : height * 0.06,
       decoration: BoxDecoration(
         color: Colors.transparent,
@@ -274,156 +277,144 @@ Widget classAuto (Color buttonColor, VoidCallback navigation, String label, Colo
 }
 }
 
-Widget card (BuildContext context, String img, String label, String description, int price, int hoursePower, int kmHour, double sekund, VoidCallback function) {
-    return Container(
-      width: 300,
-      height: 500,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(8))
-      ),
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              Image.asset(img,
-              fit: BoxFit.cover,
-              width: 300,
-              height: 210,
-              ),
-            ],
+
+Widget katalogcard (BuildContext context, String img, String label, String description, int price, int hoursePower, int kmHour, double sekund, VoidCallback function,) {
+  double width = MediaQuery.of(context).size.width;
+  double height = MediaQuery.of(context).size.height;
+    
+         return Container(
+          width: width < 600 ? width * 0.8 : 300,
+          height: width < 600 ? height * 0.85 : 500,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8))
           ),
-          Container(
-            width: 300,
-            height: 290,
-            color: Color.fromRGBO(31, 41, 55, 1),
-            child: Padding(padding: EdgeInsets.all(24),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
                 children: [
-                  Row(
-                    children: [
-                      Text(label,
-                        style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Color.fromRGBO(255, 255, 255, 1)
-                        ),
-                      )
-                    ],
+                  Image.asset(img,
+                  fit: BoxFit.cover,
+                  width: width < 600 ? width : 300,
+                  height: width < 600 ? height * 0.45 : 210,
                   ),
-                 Flexible(
-                  child: Text(description,
-                  style: TextStyle(
-                    color: Color.fromRGBO(156, 163, 175, 1),
-                    fontSize: 14
-                  ),
-                    maxLines: 2,
-                  )
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 0, bottom: 0),
-                  child: Row(
-                    children: [
-                      Text('$price,000₽/день',
-                        style: TextStyle(
-                           fontSize: 18,
-                           fontWeight: FontWeight.w700,
-                           color: Color.fromRGBO(250, 204, 21, 1)
-                        ),
-                      )
-                    ],
-                  ),
-                  ),
-                  Padding(padding: EdgeInsets.only(left: 0, right: 50),
-                    child:Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                                width: 58.7,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(9999)),
-                                  color: Color.fromRGBO(55, 65, 81, 1)
-                                ),
-                                child: Center(
-                                  child: Text('$hoursePower л.c.', style: HomescreenStyle.characteristickContainerText),
-                                ),
-                              ),
-                            Container(
-                                width: 54,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(9999)),
-                                  color: Color.fromRGBO(55, 65, 81, 1)
-                                ),
-                                child: Center(
-                                  child: Text('$sekund сек', style: HomescreenStyle.characteristickContainerText),
-                                ),
-                              ),
-                            Container(
-                                width: 66,
-                                height: 24,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(9999)),
-                                  color: Color.fromRGBO(55, 65, 81, 1)
-                                ),
-                                child: Center(
-                                  child: Text('$kmHour км/ч', style: HomescreenStyle.characteristickContainerText),
-                                ),
-                              ),
-                        ],
-                      ),
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 0, bottom: 0),
-                   child: Container(
-                    width: 248,
-                    height: 40,
-                    child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromRGBO(234, 179, 8, 1)
-                    ),
-                    onPressed: function,
-                      child: Center(
-                        child: Text('Подробнее',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Color.fromRGBO(0, 0, 0, 1)
-                          ),
-                        ),
-                      )
-                    ),
-                   )
-                  )
                 ],
               ),
-            ),
-          ),
-        ]
-      )
-    );
+              Container(
+                width: width < 600 ? width : 300,
+                height: width < 600 ? height * 0.40 : 290,
+                color: Color.fromRGBO(31, 41, 55, 1),
+                child: Padding(padding: EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(label,
+                            style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Color.fromRGBO(255, 255, 255, 1)
+                            ),
+                          )
+                        ],
+                      ),
+                    Flexible(
+                      child: Text(description,
+                      style: TextStyle(
+                        color: Color.fromRGBO(156, 163, 175, 1),
+                        fontSize: 14
+                      ),
+                        maxLines: 2,
+                      )
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 0, bottom: 0),
+                      child: Row(
+                        children: [
+                          Text('$price,000 ₽/день',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                              color: Color.fromRGBO(250, 204, 21, 1)
+                            ),
+                          )
+                        ],
+                      ),
+                      ),
+                      Padding(padding: EdgeInsets.only(left: 0, right: width < 600 ? width * 0.3 : width * 0.02),
+                        child:Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                    width: 66,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(9999)),
+                                      color: Color.fromRGBO(55, 65, 81, 1)
+                                    ),
+                                    child: Center(
+                                      child: Text('$hoursePower л.c.', style: HomescreenStyle.characteristickContainerText),
+                                    ),
+                                  ),
+                                Container(
+                                    width: 66,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(9999)),
+                                      color: Color.fromRGBO(55, 65, 81, 1)
+                                    ),
+                                    child: Center(
+                                      child: Text('$sekund сек', style: HomescreenStyle.characteristickContainerText),
+                                    ),
+                                  ),
+                                Container(
+                                    width: 66,
+                                    height: 28,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(9999)),
+                                      color: Color.fromRGBO(55, 65, 81, 1)
+                                    ),
+                                    child: Center(
+                                      child: Text('$kmHour км/ч', style: HomescreenStyle.characteristickContainerText),
+                                    ),
+                                  ),
+                            ],
+                          ),
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 0, bottom: 0),
+                      child: Cards()
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ]
+          )
+        );
 }
 
 Widget appbarButtons(String label, VoidCallback navigation, TextStyle textStyle, double buttonWidth, double buttonHeight, BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-  return Opacity(
-    opacity: 1,
-    child: SizedBox(
-      width: buttonWidth, 
-      height: buttonHeight, 
-      child: ElevatedButton(
-        style: HomescreenStyle.appbarButtonsStyle,
-        onPressed: navigation,
-        child: Text(
-          label,
-        maxLines: 1,
-          softWrap: false,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            fontSize: width < 945 ? width * 0.03 : width * 0.02,
-            color: Color.fromRGBO(156, 163, 175, 1)
+      return Opacity(
+        opacity: 1,
+        child: SizedBox(
+          width: buttonWidth, 
+          height: buttonHeight, 
+          child: ElevatedButton(
+            style: HomescreenStyle.appbarButtonsStyle,
+            onPressed: navigation,
+            child: Text(
+              label,
+            maxLines: 1,
+              softWrap: false,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontSize: width < 945 ? width * 0.03 : width * 0.02,
+                color: Color.fromRGBO(156, 163, 175, 1)
+              ),
+            ),
           ),
         ),
-      ),
-    ),
-  );
-}
+      );
+    }

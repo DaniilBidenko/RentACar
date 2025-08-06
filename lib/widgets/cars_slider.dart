@@ -1,65 +1,76 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rent_a_car_auto/blocs/sliders/cars_slider_bloc.dart';
+import 'package:rent_a_car_auto/screens/bronirovanie_screen.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 
 class CarsSlider extends StatelessWidget{
   
   final PageController _pageController = PageController();
   
+  
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CarsSliderBloc, int>(
-      builder: (context, state) {
-        return Column(
+      final List<Widget> containerList = [
+    card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {Navigator.push(context, MaterialPageRoute(builder: (context) => BronirovanieScreen()));}, context),
+    card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {Navigator.push(context, MaterialPageRoute(builder: (context) => BronirovanieScreen()));}, context),
+    card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {Navigator.push(context, MaterialPageRoute(builder: (context) => BronirovanieScreen()));}, context)
+  ];
+    return  Column(
           children: [
             SizedBox(
             height: 500,
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: (int page) {
-                context.read<CarsSliderBloc>().carsslider();
-              },
-              children: [
-                card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}),
-                card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}),
-                card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {})
-              ],
-            ),
+            child: CarouselSlider(
+              items: containerList, 
+              options: CarouselOptions(
+                pauseAutoPlayOnTouch: true,
+                viewportFraction: 0.8,
+                autoPlay: true,
+                enlargeCenterPage: true,
+                enableInfiniteScroll: true,
+                height: 600,
+                autoPlayAnimationDuration: Duration(seconds: 2),
+                autoPlayInterval: Duration(seconds: 5)
+              )
+              )
             ),
           ],
         );
-      }
-      );
   }
 }
 
-Widget card (String img, String label, String price, String hoursePower, String sekund, String kmHour, VoidCallback function) {
+Widget card (String img, String label, String price, String hoursePower, String sekund, String kmHour, VoidCallback function, BuildContext context) {
+   double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Container(
-      width: 420,
-      height: 500,
+      width: width < 600 ? width : 420 ,
+      height: width < 600 ? height * 0.5 : 500,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(16))
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
               Image.asset(img,
               fit: BoxFit.cover,
-              width: 405.33,
+              width: width < 600 ? width : 405.33,
               height: 270,
               ),
             ],
           ),
           Container(
-            width: 405.33,
+            width: width < 600 ? width : 405.33,
             height: 230,
             color: Color.fromRGBO(31, 41, 55, 1),
             child: Padding(padding: EdgeInsets.all(24),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(label,
                         style: TextStyle(
@@ -83,7 +94,7 @@ Widget card (String img, String label, String price, String hoursePower, String 
                     ],
                   ),
                   ),
-                  Padding(padding: EdgeInsets.only(left: 0, right: 0),
+                  Padding(padding: EdgeInsets.only(left: 0, right: width < 945 ? width * 0.1 : 90),
                     child:Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

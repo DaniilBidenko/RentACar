@@ -6,5 +6,5 @@ class ServicesSliderBloc extends Cubit<int>{
 
   PageController servisController = PageController();
   
-  void servicesslider () => emit(state);
+   servicesslider () => emit(state);
 }

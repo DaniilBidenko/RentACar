@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_bloc.dart';
+import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_event.dart';
+import 'package:rent_a_car_auto/repository/rent_a_car_repository.dart';
 import 'package:rent_a_car_auto/screens/bronirovanie_screen.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/blocs/sliders/cars_slider_bloc.dart';
 import 'package:rent_a_car_auto/blocs/sliders/services_slider_bloc.dart';
+import 'package:rent_a_car_auto/screens/katalog_screen.dart';
 
 
 void main () {
@@ -29,8 +33,16 @@ class RentACar extends StatelessWidget {
               return servisbloc;
             }
           ),
+          BlocProvider(
+            create: (BuildContext context) {
+              final repository = RepositoryProvider.of<RentACarRepository>(context);
+              final mainBloc = RentACarBloc(repository: repository);
+              mainBloc.add(RentACarLoad());
+              return mainBloc;
+            }
+          )
         ], 
-        child: BronirovanieScreen()
+        child: KatalogScreen()
       )
     );
   }
