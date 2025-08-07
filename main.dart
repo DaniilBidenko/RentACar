@@ -4,6 +4,7 @@ import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_bloc.dart';
 import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_event.dart';
 import 'package:rent_a_car_auto/repository/rent_a_car_repository.dart';
 import 'package:rent_a_car_auto/screens/bronirovanie_screen.dart';
+import 'package:rent_a_car_auto/screens/catalog_screen.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/blocs/sliders/cars_slider_bloc.dart';
 import 'package:rent_a_car_auto/blocs/sliders/services_slider_bloc.dart';
@@ -19,7 +20,9 @@ class RentACar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MultiBlocProvider(
+      home: RepositoryProvider(
+        create: (context) => RentACarRepository(),
+        child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) {
@@ -42,7 +45,8 @@ class RentACar extends StatelessWidget {
             }
           )
         ], 
-        child: KatalogScreen()
+        child: Homescreen()
+      ),
       )
     );
   }

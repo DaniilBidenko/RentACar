@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 
-class RentACarModel {
+class RentACarModel extends Equatable{
   final String id;
   final String brand;
   final String model;
@@ -14,7 +15,7 @@ class RentACarModel {
   final String status;
 
   RentACarModel({
-    String? id,
+    required this.id,
     required this.brand,
     required this.model,
     required this.year,
@@ -25,70 +26,67 @@ class RentACarModel {
     required this.featers,
     required this.pricePerDay,
     required this.status
-  }) :
-  id = id ?? const Uuid().v4();
+  });  
+  // RentACarModel copyWith ({
+  //   String? id,
+  //   String? brand,
+  //   String? model,
+  //   int? year,
+  //   String? classAuto,
+  //   int? horsepower,
+  //   List<String>? photos,
+  //   String? description,
+  //   List<String>? featers,
+  //   String? pricePerDay,
+  //   String? status
+  // }) {
+  //   return RentACarModel(
+  //     id: id ?? this.id,
+  //     brand: brand ?? this.brand, 
+  //     model: model ?? this.model, 
+  //     year: year ?? this.year, 
+  //     classAuto: classAuto ?? this.classAuto, 
+  //     horsepower: horsepower ?? this.horsepower, 
+  //     photos: photos ?? this.photos, 
+  //     description: description ?? this.description, 
+  //     featers: featers ?? this.featers, 
+  //     pricePerDay: pricePerDay ?? this.pricePerDay, 
+  //     status: status ?? this.status
+  //     );
+  // }
 
-  RentACarModel copyWith ({
-    String? id,
-    String? brand,
-    String? model,
-    int? year,
-    String? classAuto,
-    int? horsepower,
-    List<String>? photos,
-    String? description,
-    List<String>? featers,
-    String? pricePerDay,
-    String? status
-  }) {
-    return RentACarModel(
-      id: id,
-      brand: brand ?? this.brand, 
-      model: model ?? this.model, 
-      year: year ?? this.year, 
-      classAuto: classAuto ?? this.classAuto, 
-      horsepower: horsepower ?? this.horsepower, 
-      photos: photos ?? this.photos, 
-      description: description ?? this.description, 
-      featers: featers ?? this.featers, 
-      pricePerDay: pricePerDay ?? this.pricePerDay, 
-      status: status ?? this.status
-      );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'brand': brand,
-      'model': model,
-      'year': year,
-      'classAuto': classAuto,
-      'horsepower': horsepower,
-      'photos': photos,
-      'description': description,
-      'featers': featers,
-      'pricePerDay': pricePerDay,
-      'status': status
-    };
-  }
+  // Map<String, dynamic> toJson() {
+  //   return {
+  //     'id': id,
+  //     'brand': brand,
+  //     'model': model,
+  //     'year': year,
+  //     'classAuto': classAuto,
+  //     'horsepower': horsepower,
+  //     'photos': photos,
+  //     'description': description,
+  //     'featers': featers,
+  //     'pricePerDay': pricePerDay,
+  //     'status': status
+  //   };
+  // }
 
   static RentACarModel fromJson(Map<String, dynamic> json) {
     return RentACarModel(
-      id: json['id'] as String,
-      brand: json['brand'] as String, 
-      model: json['model'] as String, 
-      year: json['year'] as int, 
-      classAuto: json['classAuto'] as String, 
-      horsepower: json['horsepower'] as int, 
-      photos: json['photos'] as List<String>, 
-      description: json['description'] as String, 
-      featers: json['featers'] as List<String>, 
-      pricePerDay: json['pricePerDay'] as String, 
-      status: json['status'] as String
+      id: json['id'] ?? '',
+      brand: json['brand'] ?? '', 
+      model: json['model'] ?? '', 
+      year: json['year'] ?? '0' , 
+      classAuto: json['classAuto'] ?? '', 
+      horsepower: json['horsepower'] ?? '0' , 
+      photos: json['photos'] ?? [] , 
+      description: json['description'] ?? '', 
+      featers: json['features'] ?? [] , 
+      pricePerDay: json['pricePerDay'] ?? '0' , 
+      status: json['status'] ?? ''
     );
   }
 
-  @override
   List<Object?> get props => [
     id,
     brand,
@@ -102,4 +100,24 @@ class RentACarModel {
     pricePerDay,
     status
   ];
+}
+
+class CarsResponse {
+  final bool success;
+  final List<RentACarModel> data;
+  final int total;
+
+  CarsResponse({
+    required this.success,
+    required this.data,
+    required this.total
+  });
+
+  factory CarsResponse.fromJson(Map<String, dynamic> json) {
+    return CarsResponse(
+      success: json['success'] ?? false, 
+      data: (json['data'] as List?)?.map((car) => RentACarModel.fromJson(car)).toList() ?? [], 
+      total: json['total'] ?? 0
+    );
+  }
 }
