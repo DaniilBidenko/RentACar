@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:uuid/uuid.dart';
 
 class RentACarModel extends Equatable{
   final String id;
@@ -79,9 +78,9 @@ class RentACarModel extends Equatable{
       year: json['year'] ?? '0' , 
       classAuto: json['classAuto'] ?? '', 
       horsepower: json['horsepower'] ?? '0' , 
-      photos: json['photos'] ?? [] , 
+      photos: (json['photos'] as List?)?.map((photos) => photos.toString()).toList() ?? [], 
       description: json['description'] ?? '', 
-      featers: json['features'] ?? [] , 
+      featers: (json['features'] as List?)?.map((photos) => photos.toString()).toList() ?? [], 
       pricePerDay: json['pricePerDay'] ?? '0' , 
       status: json['status'] ?? ''
     );

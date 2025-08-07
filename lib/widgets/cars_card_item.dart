@@ -32,7 +32,7 @@ class _CarsCardItemState extends State<CarsCardItem> {
             children: [
               Stack(
                 children: [
-                  Image.asset(widget.rentACar.photos.toString(),
+                  Image.network(widget.rentACar.photos.toString(),
                   fit: BoxFit.cover,
                   width: width < 600 ? width : 405.33,
                   height: 270,
