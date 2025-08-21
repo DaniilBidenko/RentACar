@@ -32,9 +32,9 @@ Widget build(BuildContext context) {
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: width * 0.03, left: width < 945 ? 0 : width * 0.1, right: width < 945 ? 0 : width * 0.1),
-                child: Flexible(
+              Flexible(
+                child: Container(
+                  padding: EdgeInsets.only(top: width * 0.03, left: width < 945 ? 0 : width * 0.1, right: width < 945 ? 0 : width * 0.1),
                   child: Text('Выберите идеальный автомобиль из нашей эксклюзивной коллекции премиальных суперкаров',
                   textAlign: TextAlign.center,
                   maxLines: 2,
