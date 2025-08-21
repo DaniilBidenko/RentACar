@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rent_a_car_auto/api.dart';
 import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_bloc.dart';
 import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_state.dart';
 import 'package:rent_a_car_auto/data/rent_a_car_model.dart';
@@ -32,10 +33,10 @@ class _CarsCardItemState extends State<CarsCardItem> {
             children: [
               Stack(
                 children: [
-                  Image.network(widget.rentACar.photos.toString(),
+                  Image.network('${Api.API_URL}${widget.rentACar.photos[0].toString()}',
                   fit: BoxFit.cover,
                   width: width < 600 ? width : 405.33,
-                  height: 270,
+                  height: 130,
                   ),
                 ],
               ),

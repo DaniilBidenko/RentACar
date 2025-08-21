@@ -10,7 +10,6 @@ import 'package:rent_a_car_auto/blocs/sliders/cars_slider_bloc.dart';
 import 'package:rent_a_car_auto/blocs/sliders/services_slider_bloc.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';
 
-
 void main () {
   runApp(RentACar());
 }

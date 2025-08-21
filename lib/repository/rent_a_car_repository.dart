@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class RentACarRepository {
   Future<List<RentACarModel>> fethModel() async{
     try {
-      final url = Uri.parse('${Api.API_URL}cars/available');
+      final url = Uri.parse('${Api.API_URL}/cars/available');
       final response = await http.get(url, headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
