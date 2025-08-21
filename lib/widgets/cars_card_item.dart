@@ -40,6 +40,7 @@ class _CarsCardItemState extends State<CarsCardItem> {
                   ),
                 ],
               ),
+              
               Container(
                 width: width < 600 ? width : 405.33,
                 height: 230,
