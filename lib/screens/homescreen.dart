@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_bloc.dart';
+import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_state.dart';
 import 'package:rent_a_car_auto/screens/bronirovanie_screen.dart';
+import 'package:rent_a_car_auto/screens/catalog_screen.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 import 'package:rent_a_car_auto/widgets/appbar_widget.dart';
+import 'package:rent_a_car_auto/widgets/cars_card_item.dart';
 import 'package:rent_a_car_auto/widgets/cars_slider.dart';
 import 'package:rent_a_car_auto/widgets/services_slider.dart';
 import 'package:textuality/textuality.dart';
@@ -79,7 +84,7 @@ class Homescreen extends StatelessWidget{
                                       backgroundColor: Color.fromRGBO(234, 179, 8, 1)
                                     ),
                                     onPressed: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => KatalogScreen()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => CatalogScreen()));
                                     }, 
                                         child: Text('Выбрать автомобиль',
                                           softWrap: false,
@@ -130,151 +135,27 @@ class Homescreen extends StatelessWidget{
               )
             ]
           ),
-          LayoutBuilder(
-            builder: (context, constrains) {
-              if (constrains.maxWidth < 600) {
-                return Container(
-                  width: width,
-                  height: height * 1,
-                  color: Colors.black,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 50,
-                      left: 0,
-                      right: 0,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                      Text('Премиальная коллекция',
-                        style: HomescreenStyle.title(context)
-                      ),
-                      Padding(padding: EdgeInsets.only(top: 0, left: 0, right: 0),
-                        child: Flexible(
-                          flex: 2,
-                          child: Center(
-                            child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
-                            maxLines: 2,
-                            textAlign: TextAlign.center,
-                              style: HomescreenStyle.lowDescriprion(context),
-                            ),
-                          )
-                        )
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 40),
-                        child: CarsSlider()
-                        )
-                      ],
-                    ),
-                  )
+          Expanded(
+            child: BlocBuilder<RentACarBloc,RentACarState>(
+            builder: (contex, state) {
+              if(state is RentACarLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
                 );
-              } else if (constrains.maxWidth < 945) {
-                return Container(
-                  width: width,
-                  height:height * 2.6,
-                  color: const Color.fromRGBO(0, 0, 0, 1),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 80,
-                      left: 50,
-                      right: 50,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text('Премиальная коллекция',
-                          style: HomescreenStyle.title(context)
-                        ),
-                        Padding(padding: EdgeInsets.only(top: 30, left: 110, right: 110),
-                          child: Flexible(
-                            flex: 2,
-                            child: Center(
-                              child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                                style: HomescreenStyle.lowDescriprion(context),
-                              ),
-                            )
-                          )
-                        ),
-                        card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000 ₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}, context),
-                        card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000 ₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}, context),
-                        card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000 ₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {}, context)
-                      ]
-                    )
-                  )
+              } else if (state is RentACarLoaded) {
+                return state.rentACar.isEmpty ? _buildEmptyTopCars() : _buildTopCars(state, context);
+              } else if (state is RentACarError) {
+                return Center(
+                  child: Text('Ошибка загрузки машин'),
                 );
               } else {
-                return Container(
-                  width: width,
-                  height: width < 1500 ? height * 2 : height * 1.3 ,
-                  color: Colors.black,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 80,
-                      left: 50,
-                      right: 50,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                      Text('Премиальная коллекция',
-                        style: HomescreenStyle.title(context)
-                      ),
-                      Padding(padding: EdgeInsets.only(top: 30, left: 110, right: 110),
-                        child: Flexible(
-                          flex: 2,
-                          child: Center(
-                            child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
-                            maxLines: 2,
-                            textAlign: TextAlign.center,
-                              style: HomescreenStyle.lowDescriprion(context),
-                            ),
-                          )
-                        )
-                      ),
-                      LayoutBuilder(
-                        builder: (context, constrains) {
-                           if (constrains.maxWidth < 1400) {
-                            return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000 ₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}, context),
-                                Padding(padding: EdgeInsets.only(top: 50),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000 ₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}, context),
-                                    card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000 ₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {}, context)
-                                  ],
-                                )
-                                )
-                              ],
-                            );
-                          } else {
-                            return Padding(
-                              padding: EdgeInsets.only(top: 50, right: width * 0.025),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000 ₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}, context),
-                                    card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000 ₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}, context),
-                                    card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000 ₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {}, context)
-                                  ],
-                              ),
-                            );
-                          }
-                        }
-                        )
-                      ],
-                    ),
-                  )
+                return Center(
+                  child: Text('Что то пошло не так с машинами'),
                 );
               }
             }
             ),
+          ),
           LayoutBuilder(
             builder: (context, constrains) {
               if (constrains.maxWidth < 945) {
@@ -710,6 +591,169 @@ Widget services (String  icon, String label, String lowerText) {
       ),
     ),
   );
+}
+
+Widget _buildEmptyTopCars() {
+  return Center(
+    child: Text('Машин пока нет'),
+  );
+}
+
+Widget _buildTopCars(RentACarLoaded state, BuildContext context) {
+  double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+  final rent = state.rentACar;
+  return LayoutBuilder(
+            builder: (context, constrains) {
+              if (constrains.maxWidth < 600) {
+                return Container(
+                  width: width * 1,
+                  height: height * 1,
+                  color: Colors.black,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 50,
+                      left: 0,
+                      right: 0,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                      Text('Премиальная коллекция',
+                        style: HomescreenStyle.title(context)
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 0, left: 0, right: 0),
+                        child: Flexible(
+                          flex: 2,
+                          child: Center(
+                            child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                              style: HomescreenStyle.lowDescriprion(context),
+                            ),
+                          )
+                        )
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 40),
+                        child: CarsSlider()
+                        )
+                      ],
+                    ),
+                  )
+                );
+              } else if (constrains.maxWidth < 945) {
+                return Container(
+                  width: width * 1,
+                  height:height * 2.6,
+                  color: const Color.fromRGBO(0, 0, 0, 1),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 80,
+                      left: 50,
+                      right: 50,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text('Лидеры аренды',
+                          style: HomescreenStyle.title(context)
+                        ),
+                        Padding(padding: EdgeInsets.only(top: 30, left: 110, right: 110),
+                          child: Flexible(
+                            flex: 2,
+                            child: Center(
+                              child: Text('Лучшие и качественные автомобили',
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                                style: HomescreenStyle.lowDescriprion(context),
+                              ),
+                            )
+                          )
+                        ),
+                       GridView.builder(
+                        itemCount: rent.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: rent.length
+                        ), 
+                        itemBuilder: (BuildContext context, int index) {
+                          return CarsCardItem(rentACar: rent[3]);
+                        }
+                      )
+                      ]
+                    )
+                  )
+                );
+              } else {
+                return Container(
+                  width: width * 1,
+                  height: width < 1500 ? height * 2 : height * 1.3 ,
+                  color: Colors.black,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 80,
+                      left: 50,
+                      right: 50,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                      Text('Премиальная коллекция',
+                        style: HomescreenStyle.title(context)
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 30, left: 110, right: 110),
+                        child: Flexible(
+                          flex: 2,
+                          child: Center(
+                            child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
+                            maxLines: 2,
+                            textAlign: TextAlign.center,
+                              style: HomescreenStyle.lowDescriprion(context),
+                            ),
+                          )
+                        )
+                      ),
+                      LayoutBuilder(
+                        builder: (context, constrains) {
+                           if (constrains.maxWidth < 1400) {
+                            return Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000 ₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}, context),
+                                Padding(padding: EdgeInsets.only(top: 50),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000 ₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}, context),
+                                    card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000 ₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {}, context)
+                                  ],
+                                )
+                                )
+                              ],
+                            );
+                          } else {
+                            return Padding(
+                              padding: EdgeInsets.only(top: 50, right: width * 0.025),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000 ₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}, context),
+                                    card('assets/images/kollection_lamborgini.png', 'Lamborghini Huracan', '15,000 ₽/день', '610 л.c.', '3.2 сек', '325 км/ч', () {}, context),
+                                    card('assets/images/porsche911.png', 'Porsche 911 Turbo S', '12,000 ₽/день', '650 л.c.', '2.7 сек', '330 км/ч', () {}, context)
+                                  ],
+                              ),
+                            );
+                          }
+                        }
+                        )
+                      ],
+                    ),
+                  )
+                );
+              }
+            }
+            );
 }
 
 

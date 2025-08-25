@@ -73,7 +73,7 @@ Widget build(BuildContext context) {
                         )
                       ),
                     ),
-                    classAuto(Color.fromRGBO(31, 41, 55, 1), () {}, 'Люкс класс', Colors.white, context),
+                    classAuto(Color.fromRGBO(43, 44, 45, 1), () {}, 'Люкс класс', Colors.white, context),
                     classAuto(Color.fromRGBO(31, 41, 55, 1), () {}, 'Спорткары', Colors.white, context),
                     classAuto(Color.fromRGBO(31, 41, 55, 1), () {}, 'Экзотические', Colors.white, context),
                     classAuto(Color.fromRGBO(31, 41, 55, 1), () {}, 'Классические', Colors.white, context),

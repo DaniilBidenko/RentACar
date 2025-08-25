@@ -69,7 +69,7 @@ class HomescreenStyle {
   }
 
   static TextStyle characteristickContainerText = TextStyle(
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(156, 163, 175, 1),
     fontFamily: 'Roboto'

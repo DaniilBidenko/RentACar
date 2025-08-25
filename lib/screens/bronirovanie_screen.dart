@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_bloc.dart';
+import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_event.dart';
+import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_state.dart';
+import 'package:rent_a_car_auto/data/bronirovanie.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';
 
@@ -22,12 +27,15 @@ class _BronirovanieScreenState extends State<BronirovanieScreen> {
   final _dopKey = GlobalKey<FormState>();
 
   final _nameController = TextEditingController();
+  final _lastNameController = TextEditingController();
   final _telefonNumberController = TextEditingController();
   final _emailController = TextEditingController();
   final _adresDostavkaController = TextEditingController();
   final _adresVozwratController = TextEditingController();
   final _shooseAutoController = TextEditingController();
   final _dopController = TextEditingController();
+
+
 
   String? header;
   DateTime? _dateTime;
@@ -38,16 +46,17 @@ class _BronirovanieScreenState extends State<BronirovanieScreen> {
   bool shoose2 = false;
   bool shoose3 = false;
 
-  Future _selectEndTime (BuildContext context) async{
-    final TimeOfDay? picked = await showTimePicker(
+  Future<TimeOfDay> _selectEndTime (BuildContext context) async{
+    final TimeOfDay? endPicked = await showTimePicker(
       context: context, 
       initialTime: _endTime ?? TimeOfDay.now()
     );
-    if (picked != null && picked != _endTime) {
+    if (endPicked != null && endPicked != _endTime) {
       setState(() {
-        _endTime = picked;
+        _endTime = endPicked;
       });
     }
+    return _endTime!;
   }
 
   Future _selectStartTime (BuildContext context) async{
@@ -60,6 +69,7 @@ class _BronirovanieScreenState extends State<BronirovanieScreen> {
         _startTime = picked;
       });
     }
+    return _startTime;
   }
 
   
@@ -75,9 +85,10 @@ class _BronirovanieScreenState extends State<BronirovanieScreen> {
       _dateTime = dateTime;
     });
   }
+  return dateTime!;
 }
 
-Future _selectEndDate (BuildContext context) async{
+Future<DateTime> _selectEndDate (BuildContext context) async{
   DateTime? endDateTime = await showDatePicker(
     context: context, 
     initialDate: _endDateTime ?? DateTime.now(),
@@ -89,21 +100,43 @@ Future _selectEndDate (BuildContext context) async{
       _endDateTime = endDateTime;
     });
   }
+  return endDateTime!;
 }
 
   @override
   void dispose () {
     _nameController.dispose();
+    _lastNameController.dispose();
     _telefonNumberController.dispose();
     _emailController.dispose();
     _adresDostavkaController.dispose();
     _adresVozwratController.dispose();
     _shooseAutoController.dispose();
     _dopController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    void submitForm() {
+      if(_formInfoKey.currentState!.validate()) {
+        _formInfoKey.currentState!.save();
+        final newInfoKey = BronirovanieCustomer(
+          firstName: _nameController.text, 
+          lastName: _emailController.text, 
+          phone: _telefonNumberController.text,
+          comment: _dopController.text,
+          endDate:  _endDateTime!,
+          endTime: _endTime!,
+          startDate: _dateTime!,
+          startTime: _startTime!
+        );
+        context.read<BronirovanieBloc>().add(BronirovanieCustAdd(newInfoKey));
+        Navigator.pop(context);
+      }
+    }
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     double buttonWidth =  width < 945 ? width * 0.15 : width * 0.1;
@@ -1351,7 +1384,7 @@ Future _selectEndDate (BuildContext context) async{
                                         children: [
                                           Container(
                                             width: width * 0.36,
-                                            height: height * 0.57,
+                                            height: height * 0.58,
                                             color: Colors.transparent,
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1368,7 +1401,13 @@ Future _selectEndDate (BuildContext context) async{
                                                   child: Column(
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      textFields('Пожалуйста введите имя пользователя', 'Ваня Иванов', 'Полное имя *', context, _nameController),
+                                                      Row(
+                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          smallTextFields(context, 'Имя', 'Пожалуйста введите имя', _nameController, 'Даниил'),
+                                                          smallTextFields(context, 'Фамилия', 'Поэалуйста введите фамилию', _lastNameController, 'Биденко')
+                                                        ],
+                                                      ),
                                                       textFields('Пожалуйста введите номер телефона', '+7(999) 123-45-67', 'Телефон *', context, _telefonNumberController),
                                                       textFields('Пожалуйста введите email', 'ivan@gmail.com', 'Email *', context, _emailController)
                                                     ],
@@ -1379,7 +1418,7 @@ Future _selectEndDate (BuildContext context) async{
                                           ),
                                           Container(
                                             width: width * 0.36,
-                                            height: height * 0.57,
+                                            height: height * 0.58,
                                             color: Colors.transparent,
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1396,7 +1435,43 @@ Future _selectEndDate (BuildContext context) async{
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                     children: [
-                                                      textFields('Пожалуйста выберите автомобиль', 'Выберите автомобиль', 'Выберите автомобиль *', context, _shooseAutoController),
+                                                     BlocBuilder<BronirovanieBloc, BronirovanieState>(
+                                                      builder: (context, state) {
+                                                        if (state is BronirovanieLoading) {
+                                                          return Center(
+                                                            child: CircularProgressIndicator(),
+                                                          );
+                                                        }    else if (state is BronirovanieLoaded) {
+                                                          return PopupMenuButton(
+                                                            child: Container(
+                                                              width: width * 0.36,
+                                                              height: height * 0.15,
+                                                              decoration: BoxDecoration(
+                                                                color: Color.fromRGBO(55, 65, 81, 1),
+                                                                borderRadius: BorderRadius.all(Radius.circular(15))
+                                                              ),
+                                                            ),
+                                                            itemBuilder: (BuildContext context) => <PopupMenuEntry> [
+                                                              
+                                                              PopupMenuItem(
+                                                                value: state.bron.length,
+                                                                child: ListTile(
+                                                                  leading: Icon(Icons.car_rental, color: Colors.amber,),
+                                                                )
+                                                              )
+                                                            ],
+                                                            );
+                                                        }  else if (state is BronirovanieError) {
+                                                          return Center(
+                                                            child: Text('Ошибка загрузки автомобилей'),
+                                                          );
+                                                        } else {
+                                                          return Center(
+                                                            child: Text('Что-то пошло не так'),
+                                                          );
+                                                        }           
+                                                        }
+                                                      ),
                                                       Padding(
                                                         padding: EdgeInsets.only(
                                                           
@@ -1755,7 +1830,9 @@ Future _selectEndDate (BuildContext context) async{
                                                         borderSide: BorderSide.none
                                                       )
                                                     ),
-                                                  
+                                                  style: TextStyle(
+                                                    color: Colors.white
+                                                  ),
                                                   )
                                                 ),
                                               ),
@@ -1770,7 +1847,7 @@ Future _selectEndDate (BuildContext context) async{
                                                   style: ElevatedButton.styleFrom(
                                                     backgroundColor: Color.fromRGBO(234, 179, 8, 1)
                                                   ),
-                                                  onPressed: () {}, 
+                                                  onPressed: submitForm, 
                                                   child: Text('Забронировать',
                                                     style: TextStyle(
                                                       color: Colors.black,
@@ -1898,6 +1975,48 @@ Widget textFields (String errorText, String labelText, String popravka, BuildCon
   String? header;
   return Container(
         width: width * 0.36,
+        height: height * 0.15,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(popravka, style: BronirovanieStyle.popravka(context)),
+            TextFormField(
+              autovalidateMode: AutovalidateMode.always,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return errorText;
+                }
+                return null;
+              },
+              onSaved: (value) => header = value,
+              style: TextStyle(
+                color: Color.fromRGBO(255, 255, 255, 1)
+              ),
+              controller: controller,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Color.fromRGBO(55, 65, 81, 1),
+                hintText: labelText,
+                hintStyle: TextStyle(
+                  color: Color.fromRGBO(95, 94, 94, 1)
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none
+                )
+              )
+            )
+          ],
+        ),
+      );
+}
+
+Widget smallTextFields (BuildContext context, String popravka, String errorText, TextEditingController controller, String labelText) {
+  double width = MediaQuery.of(context).size.width;
+  double height = MediaQuery.of(context).size.height;
+  String? header;
+  return Container(
+        width: width * 0.17,
         height: height * 0.15,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

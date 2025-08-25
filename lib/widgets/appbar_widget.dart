@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rent_a_car_auto/screens/catalog_screen.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
@@ -68,7 +69,7 @@ class _AppBarWidgetState extends State<AppbarWidget> {
                                   shadowColor: Colors.transparent
                                 ),
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => KatalogScreen()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => CatalogScreen()));
                                 }, 
                                 child: Text('Каталог',
                                   style: TextStyle(

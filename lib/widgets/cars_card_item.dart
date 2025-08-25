@@ -23,8 +23,8 @@ class _CarsCardItemState extends State<CarsCardItem> {
     return BlocBuilder<RentACarBloc, RentACarState>(
       builder: (context, state) {
         return Container(
-          width: width < 600 ? width : 420 ,
-          height: width < 600 ? height * 0.5 : 500,
+          width: width < 600 ? width : 250 ,
+          height: width < 600 ? height * 0.5 : 1000,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(16))
           ),
@@ -35,17 +35,17 @@ class _CarsCardItemState extends State<CarsCardItem> {
                 children: [
                   Image.network('${Api.API_URL}${widget.rentACar.photos[0].toString()}',
                   fit: BoxFit.cover,
-                  width: width < 600 ? width : 405.33,
-                  height: 130,
+                  width: width < 600 ? width : 370,
+                  height: 180,
                   ),
                 ],
               ),
               
               Container(
-                width: width < 600 ? width : 405.33,
-                height: 230,
+                width: width < 600 ? width : 370,
+                height: 195,
                 color: Color.fromRGBO(31, 41, 55, 1),
-                child: Padding(padding: EdgeInsets.all(24),
+                child: Padding(padding: EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -61,7 +61,7 @@ class _CarsCardItemState extends State<CarsCardItem> {
                           )
                         ],
                       ),
-                      Padding(padding: EdgeInsets.only(top: 5, bottom: 10),
+                      Padding(padding: EdgeInsets.only(top: 0, bottom: 10),
                       child: Row(
                         children: [
                           Text(widget.rentACar.pricePerDay,
@@ -74,7 +74,7 @@ class _CarsCardItemState extends State<CarsCardItem> {
                         ],
                       ),
                       ),
-                      Padding(padding: EdgeInsets.only(left: 0, right: width < 945 ? width * 0.1 : 90),
+                      Padding(padding: EdgeInsets.only(left: 0, right: width < 600 ? width * 0.4 : 70),
                         child:Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -101,23 +101,25 @@ class _CarsCardItemState extends State<CarsCardItem> {
                                     ),
                                   ),
                                 Container(
-                                    width: 83,
+                                    width: 95,
                                     height: 28,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.all(Radius.circular(9999)),
                                       color: Color.fromRGBO(55, 65, 81, 1)
                                     ),
                                     child: Center(
-                                      child: Text(widget.rentACar.brand, style: HomescreenStyle.characteristickContainerText),
+                                      child: SizedBox(
+                                        child: Text(widget.rentACar.brand, style: HomescreenStyle.characteristickContainerText),
+                                      )
                                     ),
                                   ),
                             ],
                           ),
                       ),
-                      Padding(padding: EdgeInsets.only(top: 12, bottom: 12),
+                      Padding(padding: EdgeInsets.only(top: 10, bottom: 4),
                       child: Container(
                         width: 357.34,
-                        height: 48,
+                        height: 38,
                         child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromRGBO(234, 179, 8, 1)
