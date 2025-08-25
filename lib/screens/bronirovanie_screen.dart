@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_bloc.dart';
 import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_event.dart';
-import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_state.dart';
 import 'package:rent_a_car_auto/data/bronirovanie.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';
@@ -59,7 +58,7 @@ class _BronirovanieScreenState extends State<BronirovanieScreen> {
     return _endTime!;
   }
 
-  Future _selectStartTime (BuildContext context) async{
+  Future<TimeOfDay> _selectStartTime (BuildContext context) async{
     final TimeOfDay? picked = await showTimePicker(
       context: context, 
       initialTime: _startTime ?? TimeOfDay.now()
@@ -69,11 +68,11 @@ class _BronirovanieScreenState extends State<BronirovanieScreen> {
         _startTime = picked;
       });
     }
-    return _startTime;
+    return _startTime!;
   }
 
   
-  Future _selectDate (BuildContext context) async{
+  Future<DateTime> _selectDate (BuildContext context) async{
   DateTime? dateTime = await showDatePicker(
     context: context, 
     initialDate: _dateTime ?? DateTime.now(),
@@ -1435,43 +1434,7 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                     children: [
-                                                     BlocBuilder<BronirovanieBloc, BronirovanieState>(
-                                                      builder: (context, state) {
-                                                        if (state is BronirovanieLoading) {
-                                                          return Center(
-                                                            child: CircularProgressIndicator(),
-                                                          );
-                                                        }    else if (state is BronirovanieLoaded) {
-                                                          return PopupMenuButton(
-                                                            child: Container(
-                                                              width: width * 0.36,
-                                                              height: height * 0.15,
-                                                              decoration: BoxDecoration(
-                                                                color: Color.fromRGBO(55, 65, 81, 1),
-                                                                borderRadius: BorderRadius.all(Radius.circular(15))
-                                                              ),
-                                                            ),
-                                                            itemBuilder: (BuildContext context) => <PopupMenuEntry> [
-                                                              
-                                                              PopupMenuItem(
-                                                                value: state.bron.length,
-                                                                child: ListTile(
-                                                                  leading: Icon(Icons.car_rental, color: Colors.amber,),
-                                                                )
-                                                              )
-                                                            ],
-                                                            );
-                                                        }  else if (state is BronirovanieError) {
-                                                          return Center(
-                                                            child: Text('Ошибка загрузки автомобилей'),
-                                                          );
-                                                        } else {
-                                                          return Center(
-                                                            child: Text('Что-то пошло не так'),
-                                                          );
-                                                        }           
-                                                        }
-                                                      ),
+                                                      textFields('Пожалуйста выберите автомобиль', 'Выберите автомобиль', 'Выберите автомобиль *', context, _shooseAutoController),
                                                       Padding(
                                                         padding: EdgeInsets.only(
                                                           
