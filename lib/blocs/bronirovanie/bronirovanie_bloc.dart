@@ -9,15 +9,22 @@ class BronirovanieBloc extends Bloc<BronirovanieEvent, BronirovanieState>{
   BronirovanieBloc({required this.repository}) : super(BronirovanieInitial()) {
     on<BronirovanieCustAdd> ((event, emit) async {
       emit(BronirovanieLoading());
-      print('1 - Starting to load bron');
+      print('1 - Starting to create booking');
       try {
-        final bron = await repository.fethBron();
-        emit(BronirovanieLoaded(bron));
-        print('2 - Bron loaded successully: ${bron.length} bron');
-        print('3 - State emitted successfully');
+        // Отправляем данные клиента на сервер
+        final success = await repository.createBooking(event.broncust);
+        
+        if (success) {
+          // Если успешно, загружаем обновленный список бронирований
+          final bron = await repository.fethBron();
+          emit(BronirovanieLoaded(bron));
+          print('2 - Booking created and list updated: ${bron.length} bookings');
+        } else {
+          emit(BronirovanieError('Не удалось создать бронирование'));
+        }
       } catch (e) {
-        print('Ошибка $e');
-        emit(BronirovanieError(e.toString()));
+        print('Ошибка при создании бронирования: $e');
+        emit(BronirovanieError('Ошибка при создании бронирования: ${e.toString()}'));
       }
     });
   }

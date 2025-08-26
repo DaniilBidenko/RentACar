@@ -119,20 +119,31 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
   Widget build(BuildContext context) {
 
     void submitForm() {
-      if(_formInfoKey.currentState!.validate()) {
+      if(_formInfoKey.currentState!.validate() && 
+         _dateTime != null && _endDateTime != null && 
+         _startTime != null && _endTime != null) {
         _formInfoKey.currentState!.save();
-        final newInfoKey = BronirovanieCustomer(
+        
+        final newBooking = BronirovanieCustomer(
           firstName: _nameController.text, 
-          lastName: _emailController.text, 
+          lastName: _lastNameController.text, 
           phone: _telefonNumberController.text,
           comment: _dopController.text,
-          endDate:  _endDateTime!,
+          endDate: _endDateTime!,
           endTime: _endTime!,
           startDate: _dateTime!,
           startTime: _startTime!
         );
-        context.read<BronirovanieBloc>().add(BronirovanieCustAdd(newInfoKey));
-        Navigator.pop(context);
+        
+        context.read<BronirovanieBloc>().add(BronirovanieCustAdd(newBooking));
+      } else {
+        // Показываем ошибку если не все поля заполнены
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Пожалуйста, заполните все обязательные поля'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     }
 
@@ -143,7 +154,26 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppbarWidget(),
-      body: 
+      body: BlocListener<BronirovanieBloc, BronirovanieState>(
+        listener: (context, state) {
+          if (state is BronirovanieLoaded) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Бронирование успешно создано!'),
+                backgroundColor: Colors.green,
+              ),
+            );
+            Navigator.pop(context);
+          } else if (state is BronirovanieError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Ошибка: ${state.message}'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
+        child: 
           LayoutBuilder(
             builder: (context, constrains) {
               if (constrains.maxWidth < 600) {
@@ -618,13 +648,40 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
                                                   style: ElevatedButton.styleFrom(
                                                     backgroundColor: Color.fromRGBO(234, 179, 8, 1)
                                                   ),
-                                                  onPressed: () {}, 
-                                                  child: Text('Забронировать',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: width * 0.025,
-                                                      fontWeight: FontWeight.w700
-                                                    ),
+                                                  onPressed: submitForm, 
+                                                  child: BlocBuilder<BronirovanieBloc, BronirovanieState>(
+                                                    builder: (context, state) {
+                                                      if (state is BronirovanieLoading) {
+                                                        return Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 16,
+                                                              height: 16,
+                                                              child: CircularProgressIndicator(
+                                                                color: Colors.black,
+                                                                strokeWidth: 2,
+                                                              ),
+                                                            ),
+                                                            SizedBox(width: 8),
+                                                            Text('Отправка...',
+                                                              style: TextStyle(
+                                                                color: Colors.black,
+                                                                fontSize: width * 0.025,
+                                                                fontWeight: FontWeight.w700
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      }
+                                                      return Text('Забронировать',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: width * 0.025,
+                                                          fontWeight: FontWeight.w700
+                                                        ),
+                                                      );
+                                                    },
                                                   )
                                                   ),
                                               ),
@@ -1210,13 +1267,40 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
                                                   style: ElevatedButton.styleFrom(
                                                     backgroundColor: Color.fromRGBO(234, 179, 8, 1)
                                                   ),
-                                                  onPressed: () {}, 
-                                                  child: Text('Забронировать',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: width * 0.013,
-                                                      fontWeight: FontWeight.w700
-                                                    ),
+                                                  onPressed: submitForm, 
+                                                  child: BlocBuilder<BronirovanieBloc, BronirovanieState>(
+                                                    builder: (context, state) {
+                                                      if (state is BronirovanieLoading) {
+                                                        return Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 12,
+                                                              height: 12,
+                                                              child: CircularProgressIndicator(
+                                                                color: Colors.black,
+                                                                strokeWidth: 2,
+                                                              ),
+                                                            ),
+                                                            SizedBox(width: 6),
+                                                            Text('Отправка...',
+                                                              style: TextStyle(
+                                                                color: Colors.black,
+                                                                fontSize: width * 0.013,
+                                                                fontWeight: FontWeight.w700
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      }
+                                                      return Text('Забронировать',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: width * 0.013,
+                                                          fontWeight: FontWeight.w700
+                                                        ),
+                                                      );
+                                                    },
                                                   )
                                                   ),
                                               ),
@@ -1811,12 +1895,39 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
                                                     backgroundColor: Color.fromRGBO(234, 179, 8, 1)
                                                   ),
                                                   onPressed: submitForm, 
-                                                  child: Text('Забронировать',
-                                                    style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: width * 0.01,
-                                                      fontWeight: FontWeight.w700
-                                                    ),
+                                                  child: BlocBuilder<BronirovanieBloc, BronirovanieState>(
+                                                    builder: (context, state) {
+                                                      if (state is BronirovanieLoading) {
+                                                        return Row(
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 12,
+                                                              height: 12,
+                                                              child: CircularProgressIndicator(
+                                                                color: Colors.black,
+                                                                strokeWidth: 2,
+                                                              ),
+                                                            ),
+                                                            SizedBox(width: 6),
+                                                            Text('Отправка...',
+                                                              style: TextStyle(
+                                                                color: Colors.black,
+                                                                fontSize: width * 0.01,
+                                                                fontWeight: FontWeight.w700
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      }
+                                                      return Text('Забронировать',
+                                                        style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: width * 0.01,
+                                                          fontWeight: FontWeight.w700
+                                                        ),
+                                                      );
+                                                    },
                                                   )
                                                   ),
                                               ),
@@ -1928,6 +2039,7 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
               }
             }
           )
+        ),
     );
   }
 }
