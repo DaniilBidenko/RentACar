@@ -52,10 +52,10 @@ class Homescreen extends StatelessWidget{
                         )
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: width < 945 ? width * 0.065 : width * 0.02, right: width * 0.06),
-                      child: Flexible(
-                        flex: 2,
+                    Flexible(
+                      flex: 2,
+                      child: Container(
+                        padding: EdgeInsets.only(left: width < 945 ? width * 0.065 : width * 0.02, right: width * 0.06),
                         child: Text('Эксклюзивные суперкары для незабываемых впечатлений. Почувствуйте мощь и роскошь премиальных автомобилей.',
                         textAlign: TextAlign.center,
                         style: HomescreenStyle.descriptionCenter(context),
@@ -150,9 +150,10 @@ class Homescreen extends StatelessWidget{
                       Text('Премиальная коллекция',
                         style: HomescreenStyle.title(context)
                       ),
-                      Padding(padding: EdgeInsets.only(top: 0, left: 0, right: 0),
-                        child: Flexible(
-                          flex: 2,
+                      Flexible(
+                        flex: 2,
+                        child: Container(
+                          padding: EdgeInsets.only(top: 0, left: 0, right: 0),
                           child: Center(
                             child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
                             maxLines: 2,
@@ -188,9 +189,10 @@ class Homescreen extends StatelessWidget{
                         Text('Премиальная коллекция',
                           style: HomescreenStyle.title(context)
                         ),
-                        Padding(padding: EdgeInsets.only(top: 30, left: 110, right: 110),
-                          child: Flexible(
-                            flex: 2,
+                        Flexible(
+                          flex: 2,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 30, left: 110, right: 110),
                             child: Center(
                               child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
                               maxLines: 2,
@@ -224,9 +226,10 @@ class Homescreen extends StatelessWidget{
                       Text('Премиальная коллекция',
                         style: HomescreenStyle.title(context)
                       ),
-                      Padding(padding: EdgeInsets.only(top: 30, left: 110, right: 110),
-                        child: Flexible(
-                          flex: 2,
+                      Flexible(
+                        flex: 2,
+                        child: Container(
+                          padding: EdgeInsets.only(top: 30, left: 110, right: 110),
                           child: Center(
                             child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
                             maxLines: 2,
@@ -394,13 +397,14 @@ class Homescreen extends StatelessWidget{
                   ),
                 ),
                 ),
-                  Padding(padding: EdgeInsets.only(left: width < 945 ? width * 0.05 : width * 0.05, right: width < 945 ? width * 0.05 : width * 0.05),
-                    child: Flexible(
-                      flex: 2,
-                    child: Center(
-                      child: Text('Забронируйте свой идеальный автомобиль прямо сейчас и получите скидку 10% на первую аренду',
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
+                  Flexible(
+                    flex: 2,
+                    child: Container(
+                      padding: EdgeInsets.only(left: width < 945 ? width * 0.05 : width * 0.05, right: width < 945 ? width * 0.05 : width * 0.05),
+                      child: Center(
+                        child: Text('Забронируйте свой идеальный автомобиль прямо сейчас и получите скидку 10% на первую аренду',
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: width < 945 ? width * 0.025 : width * 0.02,
                         fontWeight: FontWeight.w400,

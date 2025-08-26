@@ -33,10 +33,25 @@ class _CarsCardItemState extends State<CarsCardItem> {
             children: [
               Stack(
                 children: [
-                  Image.network('${Api.API_URL}${widget.rentACar.photos[0].toString()}',
-                  fit: BoxFit.cover,
-                  width: width < 600 ? width : 370,
-                  height: 180,
+                  Builder(
+                    builder: (_) {
+                      final String raw = widget.rentACar.photos.isNotEmpty ? widget.rentACar.photos[0].toString() : '';
+                      final bool isAbsolute = raw.startsWith('http://') || raw.startsWith('https://');
+                      final String url = isAbsolute ? raw : '${Api.API_URL}$raw';
+                      return Image.network(
+                        url,
+                        fit: BoxFit.cover,
+                        width: width < 600 ? width : 370,
+                        height: 180,
+                        errorBuilder: (_, __, ___) => Container(
+                          width: width < 600 ? width : 370,
+                          height: 180,
+                          color: Colors.grey.shade300,
+                          alignment: Alignment.center,
+                          child: const Icon(Icons.broken_image, color: Colors.black45),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
