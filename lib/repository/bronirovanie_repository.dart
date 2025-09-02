@@ -11,18 +11,19 @@ class BronirovanieRepository {
       final response = await http.get(url, headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'User-Agent': 'Flutter Web Client', 
+        'User-Agent': 'Flutter Web Client',
       }
     );
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
-     
+    print(response);
 
     if(response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final bronirovanieResponse = BronirovanieResponse.fromJson(jsonData);
-
       if(bronirovanieResponse.success) {
+         print('Данные пришли успешно');
+         print(bronirovanieResponse.data);
         return bronirovanieResponse.data;
       } else {
         throw Exception('HTTP Error: ${response.statusCode} - ${response.body}');
@@ -55,7 +56,7 @@ class BronirovanieRepository {
           'comment': customer.comment,
         }
       };
-
+      print(requestData);
       final response = await http.post(
         url,
         headers: {
@@ -71,7 +72,7 @@ class BronirovanieRepository {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final jsonData = json.decode(response.body);
-        
+        print(jsonData);
         // Возвращаем true если запрос успешен
         return jsonData['success'] == true;
       } else {
@@ -80,7 +81,6 @@ class BronirovanieRepository {
     } catch (e) {
       print('Error in createBooking: $e');
       rethrow;
-      
     }
   }
 }

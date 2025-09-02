@@ -13,11 +13,12 @@ class BronirovanieBloc extends Bloc<BronirovanieEvent, BronirovanieState>{
       try {
         // Отправляем данные клиента на сервер
         final success = await repository.createBooking(event.broncust);
-        
+        print(success);
         if (success) {
           // Если успешно, загружаем обновленный список бронирований
           final bron = await repository.fethBron();
           emit(BronirovanieLoaded(bron));
+          print(bron);
           print('2 - Booking created and list updated: ${bron.length} bookings');
         } else {
           emit(BronirovanieError('Не удалось создать бронирование'));

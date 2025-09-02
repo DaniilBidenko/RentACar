@@ -19,7 +19,7 @@ class Bronirovanie extends Equatable{
 
   Bronirovanie({
     this.id = '0',
-    this.cardId = '0',
+     required this.cardId,
     this.customerId = '0',
     this.discount = '0',
     required this.finalPrice,
@@ -103,7 +103,6 @@ class BronirovanieCustomer extends Equatable {
       startTime: json['startTime'],
       endTime: json['endTime'],
       comment: json['comment'],
-
     );
   }
 

@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_bloc.dart';
 import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_event.dart';
+import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_state.dart';
+import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_bloc.dart';
+import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_state.dart';
 import 'package:rent_a_car_auto/data/bronirovanie.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';
@@ -1518,7 +1521,40 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                     children: [
-                                                      textFields('Пожалуйста выберите автомобиль', 'Выберите автомобиль', 'Выберите автомобиль *', context, _shooseAutoController),
+                                                      BlocBuilder<RentACarBloc, RentACarState>(
+                                                        builder: (context, state) {
+                                                          if (state is RentACarLoading) {
+                                                            return Center(
+                                                              child: CircularProgressIndicator()
+                                                            );
+                                                          } else if (state is RentACarLoaded) {
+                                                            return Center(
+                                                              child: PopupMenuButton(
+                                                                itemBuilder: (BuildContext context) {
+                                                                  return state.rentACar.map((item) {
+                                                                    return PopupMenuItem(
+                                                                      value: item,
+                                                                      child: Row(
+                                                                        children: [
+                                                                          Text(item.model),
+                                                                          Text(item.brand),
+                                                                          Text(item.pricePerDay)
+                                                                        ],
+                                                                      )
+                                                                    );
+                                                                  }).toList();
+                                                                }
+                                                              )
+                                                            );
+                                                          } else if (state is BronirovanieError) {
+                                                            return Center(
+                                                              child: Text('Ошибка'),
+                                                            );
+                                                          } else {
+                                                            return Center(child: Text('Иди нахуй'),);
+                                                          }
+                                                        }
+                                                      ),
                                                       Padding(
                                                         padding: EdgeInsets.only(
                                                           
