@@ -1528,23 +1528,25 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
                                                               child: CircularProgressIndicator()
                                                             );
                                                           } else if (state is RentACarLoaded) {
+                                                            String dropDownValue = '${state.rentACar.first.brand} ${state.rentACar.first.id}';
                                                             return Center(
-                                                              child: PopupMenuButton(
-                                                                itemBuilder: (BuildContext context) {
-                                                                  return state.rentACar.map((item) {
-                                                                    return PopupMenuItem(
-                                                                      value: item,
-                                                                      child: Row(
-                                                                        children: [
-                                                                          Text(item.model),
-                                                                          Text(item.brand),
-                                                                          Text(item.pricePerDay)
-                                                                        ],
-                                                                      )
-                                                                    );
-                                                                  }).toList();
-                                                                }
-                                                              )
+                                                              child: DropdownButton<String>(
+                                                                value: dropDownValue,
+                                                                hint: const Text("Выбери автомобиль"),
+                                                                items: state.rentACar.map<DropdownMenuItem<String>>((item) {
+                                                                  return DropdownMenuItem<String>(
+                                                                    value: item.id, // id будет выбранным значением
+                                                                    child: Text("${item.brand} ${item.model}"),
+                                                                  );
+                                                                }).toList(),
+                                                                onChanged: (value) {
+                                                                  setState(() {
+                                                                    dropDownValue = value!;
+                                                                  });
+                                                                  // выводим id в консоль
+                                                                  print("Выбран автомобиль с id: $value");
+                                                                },
+                                                              ),
                                                             );
                                                           } else if (state is BronirovanieError) {
                                                             return Center(

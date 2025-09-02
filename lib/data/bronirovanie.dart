@@ -16,7 +16,6 @@ class Bronirovanie extends Equatable{
   final int year;
   final String carClass;
 
-
   Bronirovanie({
     this.id = '0',
      required this.cardId,
@@ -69,7 +68,6 @@ class Bronirovanie extends Equatable{
     year
   ];
 }
-
 
 class BronirovanieCustomer extends Equatable {
   final String firstName;
