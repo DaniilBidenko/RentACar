@@ -4,7 +4,7 @@ import 'package:rent_a_car_auto/screens/faq_list_screen.dart';
 import 'package:rent_a_car_auto/screens/faq_screen.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';
-import 'package:rent_a_car_auto/screens/test_screen.dart';
+import 'package:rent_a_car_auto/screens/bronirovanie_screen.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 
 class AppbarButtonWidget extends StatefulWidget {
@@ -39,7 +39,6 @@ class _AppBarButtonWidgetState extends State<AppbarButtonWidget> {
                   Navigator.push(context, MaterialPageRoute(builder: (_) => CatalogScreen()));
                 }, HomescreenStyle.appbarButtonTextStyle(context), buttonWidth, buttonHeight),
                 appbarButtons('FAQ', () {
-                 Navigator.push(context, MaterialPageRoute(builder: (_) => TestScreen()));
                 }, HomescreenStyle.appbarButtonTextStyle(context), buttonWidth, buttonHeight),
                 appbarButtons('Контакты', () {}, HomescreenStyle.appbarButtonTextStyle(context), buttonWidth, buttonHeight),
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rent_a_car_auto/screens/catalog_screen.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';
-import 'package:rent_a_car_auto/screens/test_screen.dart';
+import 'package:rent_a_car_auto/screens/bronirovanie_screen.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 import 'package:rent_a_car_auto/widgets/appbar_button_widget.dart';
 

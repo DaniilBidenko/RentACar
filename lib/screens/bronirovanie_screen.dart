@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_bloc.dart';
@@ -9,21 +10,19 @@ import 'package:rent_a_car_auto/blocs/mainbloc/rent_a_car_state.dart';
 import 'package:rent_a_car_auto/data/bronirovanie.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';
-
 import 'package:rent_a_car_auto/styles/bronirovanie_style.dart';
 import 'package:rent_a_car_auto/styles/homescreen_style.dart';
 import 'package:rent_a_car_auto/widgets/appbar_widget.dart';
 
-
 class BronirovanieScreen extends StatefulWidget{
   BronirovanieScreen({Key? key}) : super(key: key);
   @override
-  State<BronirovanieScreen> createState() => _BronirovanieScreenState();
+  State<BronirovanieScreen> createState() => TestScreenState();
 }
 
-class _BronirovanieScreenState extends State<BronirovanieScreen> {
-
-  final _formInfoKey = GlobalKey<FormState>();
+class TestScreenState extends State<BronirovanieScreen> {
+  
+   final _formInfoKey = GlobalKey<FormState>();
   final _formDetailsKey = GlobalKey<FormState>();
   final _dostavkaKey = GlobalKey<FormState>();
   final _dopKey = GlobalKey<FormState>();
@@ -118,9 +117,10 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
     super.dispose();
   }
 
+  String? selectedCarId;
   @override
   Widget build(BuildContext context) {
-
+    
     void submitForm() {
       if(_formInfoKey.currentState!.validate() && 
          _dateTime != null && _endDateTime != null && 
@@ -149,8 +149,7 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
         );
       }
     }
-
-    double width = MediaQuery.of(context).size.width;
+     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     double buttonWidth =  width < 945 ? width * 0.15 : width * 0.1;
     double buttonHeight = width < 945 ? height * 0.07 : height * 0.055;
@@ -1521,34 +1520,57 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
                                                   child: Column(
                                                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                     children: [
-                                                      BlocBuilder<RentACarBloc, RentACarState>(
+                                                      Center(
+                                                        child: BlocBuilder<RentACarBloc, RentACarState>(
                                                         builder: (context, state) {
-                                                          if (state is RentACarLoading) {
+                                                         if (state is RentACarLoading) {
                                                             return Center(
                                                               child: CircularProgressIndicator()
                                                             );
                                                           } else if (state is RentACarLoaded) {
-                                                            String dropDownValue = '${state.rentACar.first.brand} ${state.rentACar.first.id}';
+                                                            selectedCarId ??= state.rentACar.first.id;
+                                                            final cars = state.rentACar;
+                                                            final String effectiveId =
+                                                                cars.any((c) => c.id == selectedCarId) ? (selectedCarId as String) : cars.first.id;
                                                             return Center(
-                                                              child: DropdownButton<String>(
-                                                                value: dropDownValue,
-                                                                hint: const Text("Выбери автомобиль"),
-                                                                items: state.rentACar.map<DropdownMenuItem<String>>((item) {
-                                                                  return DropdownMenuItem<String>(
-                                                                    value: item.id, // id будет выбранным значением
-                                                                    child: Text("${item.brand} ${item.model}"),
-                                                                  );
-                                                                }).toList(),
-                                                                onChanged: (value) {
-                                                                  setState(() {
-                                                                    dropDownValue = value!;
-                                                                  });
-                                                                  // выводим id в консоль
-                                                                  print("Выбран автомобиль с id: $value");
-                                                                },
+                                                              child: Column(
+                                                                mainAxisSize: MainAxisSize.min,
+                                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                                children: [
+                                                                  DropdownButton<String>(
+                                                                    value: effectiveId,
+                                                                    hint: const Text("Выбери автомобиль"),
+                                                                    isExpanded: true,
+                                                                    selectedItemBuilder: (context) {
+                                                                      return cars.map((item) {
+                                                                        return Text("${item.brand} ${item.model} [${item.id}]");
+                                                                      }).toList();
+                                                                    },
+                                                                    items: cars.map<DropdownMenuItem<String>>((item) {
+                                                                      return DropdownMenuItem<String>(
+                                                                        value: item.id,
+                                                                        child: Text("${item.brand} ${item.model} [${item.id}]")
+                                                                      );
+                                                                    }).toList(),
+                                                                    onChanged: (value) {
+                                                                      setState(() {
+                                                                        selectedCarId = value;
+                                                                      });
+                                                                      print("Выбран автомобиль с id: $value");
+                                                                    },
+                                                                  ),
+                                                                  const SizedBox(height: 12),
+                                                                  Builder(
+                                                                    builder: (_) {
+                                                                      final selected = cars.firstWhere((c) => c.id == effectiveId, orElse: () => cars.first);
+                                                                      return Text("Выбран: ${selected.brand} ${selected.model} [${selected.id}]");
+                                                                    },
+                                                                  )
+                                                                ],
                                                               ),
                                                             );
-                                                          } else if (state is BronirovanieError) {
+                                                          }
+                                                          else if (state is BronirovanieError) {
                                                             return Center(
                                                               child: Text('Ошибка'),
                                                             );
@@ -1556,6 +1578,7 @@ Future<DateTime> _selectEndDate (BuildContext context) async{
                                                             return Center(child: Text('Иди нахуй'),);
                                                           }
                                                         }
+                                                      ),
                                                       ),
                                                       Padding(
                                                         padding: EdgeInsets.only(
@@ -2238,6 +2261,3 @@ Widget appbarButtons(String label, VoidCallback navigation, TextStyle textStyle,
     ),
   );
 }
-
-
-

@@ -216,7 +216,7 @@ class Homescreen extends StatelessWidget{
                   color: Colors.black,
                   child: Padding(
                     padding: EdgeInsets.only(
-                      top: 80,
+                      top: 0,
                       left: 50,
                       right: 50,
                     ),
@@ -229,7 +229,7 @@ class Homescreen extends StatelessWidget{
                       Flexible(
                         flex: 2,
                         child: Container(
-                          padding: EdgeInsets.only(top: 30, left: 110, right: 110),
+                          padding: EdgeInsets.only(top: 0, left: 110, right: 110),
                           child: Center(
                             child: Text('Отборные суперкары от ведущих мировых производителей для самых взыскательных клиентов',
                             maxLines: 2,
@@ -243,10 +243,10 @@ class Homescreen extends StatelessWidget{
                         builder: (context, constrains) {
                            if (constrains.maxWidth < 1400) {
                             return Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 card('assets/images/ferrari485.png', 'Ferrari 488 GTB', '18,000 ₽/день', ' 670 л.c.', '3.0 сек', '330 км/ч', () {}, context),
-                                Padding(padding: EdgeInsets.only(top: 50),
+                                Padding(padding: EdgeInsets.only(top: 0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
@@ -259,7 +259,7 @@ class Homescreen extends StatelessWidget{
                             );
                           } else {
                             return Padding(
-                              padding: EdgeInsets.only(top: 50, right: width * 0.025),
+                              padding: EdgeInsets.only(top: 0, right: width * 0.025),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
