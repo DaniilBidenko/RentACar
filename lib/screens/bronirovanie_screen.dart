@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_bloc.dart';
 import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_event.dart';
+import 'package:rent_a_car_auto/blocs/bronirovanie/bronirovanie_state.dart';
 import 'package:rent_a_car_auto/data/bronirovanie.dart';
 import 'package:rent_a_car_auto/screens/homescreen.dart';
 import 'package:rent_a_car_auto/screens/katalog_screen.dart';

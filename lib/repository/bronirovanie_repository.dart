@@ -8,10 +8,13 @@ class BronirovanieRepository {
   Future<List<Bronirovanie>> fethBron() async{
     try {
       final url = Uri.parse('${Api.API_URL}/bookings');
-      final response = await http.get(url, headers: {
+      final response = await http.post(url, headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'User-Agent': 'Flutter Web Client', 
+      },
+      body: {
+
       }
     );
     print('Response status: ${response.statusCode}');

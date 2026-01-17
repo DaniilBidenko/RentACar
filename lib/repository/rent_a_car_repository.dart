@@ -19,7 +19,7 @@ class RentACarRepository {
     if(response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final carsResponse = CarsResponse.fromJson(jsonData);
-
+      print(carsResponse);
       if (carsResponse.success) {
         return carsResponse.data;
       } else {
